@@ -1,5 +1,5 @@
 echo "Compilacion de JFlex"
-java -jar /home/jorge/Apps/jlex-1.9.1/lib/jflex-full-1.9.1.jar -d ../Graficador/src/main/java/com/jbrod/graficador/analizadores Lexer.flex
+java -jar /home/jorge/Apps/jflex-1.9.1/lib/jflex-full-1.9.1.jar -d ../Graficador/src/main/java/com/jbrod/graficador/analizadores Lexer.flex
 
 echo " "
 echo " "

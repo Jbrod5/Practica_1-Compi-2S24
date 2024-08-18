@@ -11,6 +11,6 @@ package com.jbrod.graficador;
 public class Graficador {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        System.out.println("olaolaolaaaa");
     }
 }

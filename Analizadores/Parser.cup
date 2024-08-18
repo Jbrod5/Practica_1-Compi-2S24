@@ -55,9 +55,13 @@ non terminal num;
 non terminal color; 
 
 // Graficos
-non terminal graficar, figura, animal, tipo_animacion; 
+non terminal graficar, figura, animar, tipo_animacion; 
+
 
 /* - - - - - - - - - - - - - - - - - - - - - - - Producciones - - - - - - - - - - - - - - - - - - - - - - - */
+
+precedence left SUMA, RESTA;
+precedence left MULTIPLICACION, DIVISION;
 
 // Inicio
 start with inicio; 
