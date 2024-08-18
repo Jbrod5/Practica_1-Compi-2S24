@@ -65,8 +65,10 @@ precedence left MULTIPLICACION, DIVISION;
 
 // Inicio
 start with inicio; 
-inicio ::= graficar; 
-inicio ::= animar;
+inicio ::= graficar inicio; 
+inicio ::= animar inicio;
+inicio ::= graficar;
+inicio ::= animar; 
 
 
 // Numeros
