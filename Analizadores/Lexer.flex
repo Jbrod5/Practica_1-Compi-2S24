@@ -1,5 +1,7 @@
 /* - - - - - - - - - - - - - - - - - CODIGO DE USUARIO - - - - - - - - - - - - - - - - - */
 
+package com.jbrod.graficador.analizadores;
+import java_cup.runtime.*;
 
 %%
 
@@ -23,6 +25,7 @@ suma = "+"
 rest = "-"
 para = "("
 parc = ")"
+coma = ","
 
 
 // Palabras reservadas
@@ -94,6 +97,7 @@ WhiteSpaceOp ={WhiteSpace}*
 {rest} {return symbol(sym.RESTA); }
 {para} {return symbol(sym.PARA); }
 {parc} {return symbol(sym.PARC); }
+{coma} {return symbol(sym.COMA); }
 
 /* PALABRAS RESERVADAS */
 /* colores */

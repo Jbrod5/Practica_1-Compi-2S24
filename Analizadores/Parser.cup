@@ -1,3 +1,5 @@
+package com.jbrod.graficador.analizadores;
+import java_cup.runtime; 
 
 
 
@@ -29,7 +31,7 @@ parser code{:
 terminal NUMERO;
 
 /* Operaciones / Simbolos */
-terminal MULTIPLICACION, DIVISION, SUMA, RESTA, PARA, PARC;
+terminal MULTIPLICACION, DIVISION, SUMA, RESTA, PARA, PARC, COMA;
 
 /* Colores */
 terminal AZUL, ROJO, AMARILLO, VERDE, MORADO, NARANJA, TURQUESA, NEGRO, CAFE;
@@ -44,7 +46,74 @@ terminal GRAFICAR, CIRCULO, CUADRADO, RECTANGULO, POLIGONO;
 terminal IDENTIFICADOR;
 
 /* - - - - - - - - - - - - - - - - - - - - - - No terminales - - - - - - - - - - - - - - - - - - - - - - */
+non terminal inicio; 
 
+// Numeros
+non terminal num; 
 
+// Colores 
+non terminal color; 
+
+// Graficos
+non terminal graficar, figura, animal, tipo_animacion; 
 
 /* - - - - - - - - - - - - - - - - - - - - - - - Producciones - - - - - - - - - - - - - - - - - - - - - - - */
+
+// Inicio
+start with inicio; 
+inicio ::= graficar; 
+inicio ::= animar;
+
+
+// Numeros
+num ::= NUMERO:number {: RESULT = number; :};
+
+num ::= num:n1 MULTIPLICACION num:n2 {: RESULT = n1 * n2; :};
+num ::= num:n1 DIVISION       num:n2 {: RESULT = n1 / n2; :}; 
+
+num ::= PARA num:number PARC {: RESULT = number; :};
+
+num ::= num:n1 SUMA  num:n2 {: RESULT = n1 + n2; :}; 
+num ::= num:n1 RESTA num:n2 {: RESULT = n1 - n2; :};
+
+// Colores
+//MODIFICAR: Retornar el color como se usa en la libreria, en exadecimal o etc
+color ::= AZUL:c     {: RESULT = "AZUL"     ;:}; 
+color ::= ROJO: c    {: RESULT = "ROJO"     ;:};
+color ::= AMARILLO:c {: RESULT = "AMARILLO" ;:};
+color ::= VERDE :c   {: RESULT = "VERDE"    ;:};
+color ::= MORADO:c   {: RESULT = "MORADO"   ;:};
+color ::= NARANJA:c  {: RESULT = "NARANJA"  ;:};
+color ::= TURQUESA:c {: RESULT = "TURQUESA" ;:};
+color ::= NEGRO:c    {: RESULT = "NEGRO"    ;:};
+color ::= CAFE:c     {: RESULT = "CAFE"     ;:};
+
+
+
+
+//Graficos, ejecutar las graficas en figura
+graficar ::= GRAFICAR figura; 
+
+// nombre, posx, posy, radio, color 
+figura ::= CIRCULO      PARA IDENTIFICADOR:nombre COMA num:posx COMA num:posy COMA num:radio COMA color:color PARC
+            {: System.out.printf ("Graficare un CIRCULO llamado: + %s | posx: %.2f posy: %.2f  | radio: %.2f color: %s %n %n", nombre, posx, posy, radio, color );:};
+// nombre, posx, posy, tamaño lado, color 
+figura ::= CUADRADO     PARA IDENTIFICADOR:nombre COMA num:posx COMA num:posy COMA num:tam_lado  COMA color:color PARC
+            {: System.out.printf ("Graficare un CUADRADO llamado: + %s | posx: %.2f posy: %.2f  | lado: %.2f color: %s %n %n", nombre, posx, posy, tam_lado, color );:};
+// nombre, posx, posy, ancho, alto, color 
+figura ::= RECTANGULO   PARA IDENTIFICADOR:nombre COMA num:posx COMA num:posy COMA num:ancho COMA num:alto COMA color:color PARC
+            {: System.out.printf ("Graficare un RECTANGULO llamado: + %s | posx: %.2f posy: %.2f  | ancho: %.2f alto: %.2f color: %s %n %n", nombre, posx, posy, ancho, alto, color );:};
+// nombre, posx1, posy1, posx2, posy2, color 
+figura ::= LINEA        PARA IDENTIFICADOR:nombre COMA num:posx1 COMA num:posy1 COMA num:posx2 COMA num:posy2 COMA color: color PARC
+            {: System.out.printf ("Graficare una LINEA llamada: + %s | posx1: %.2f posy1: %.2f | posx2: %.2f posy2: %.2f  | color: %s %n %n", nombre, posx1, posy1, posx2, posy2, color );:};
+// nombre, posx, posy, cantidad lados, ancho, alto, color 
+figura ::= POLIGONO     PARA IDENTIFICADOR:nombre COMA num:posx COMA num:posy COMA num:cantidad_lados COMA num:ancho COMA num:alto COMA color:color PARC
+            {: System.out.printf ("Graficare un POLIGONO llamado: + %s | posx: %.2f posy: %.2f  | lados: %.2f ancho: %.2f alto: %.2f color: %s %n %n", nombre, posx, posy, cantidad_lados, ancho, alto, color );:};
+
+
+// Animaciones: tipo, destinox, destinoy, orden 
+animar ::= ANIMAR OBJETO ANTERIOR PARA tipo_animacion:tipo COMA num:destinox COMA num:destinoy COMA num:orden PARC
+            {: System.outl.printf ("Animare el objeto anterior de forma: %s| hacia x: %.2f   y: %.2f | orden: %.2f", tipo, destinox, destinoy, orden); :};
+
+tipo_animacion ::= LINEA{: RESULT = "Linea"; :};
+tipo_animacion ::= CURVA{: RESULT = "Curva"; :};
