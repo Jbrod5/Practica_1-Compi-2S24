@@ -11,4 +11,16 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>com.jbrod.graficador.Graficador</exec.mainClass>
     </properties>
+    
+    <dependencies>
+        
+        <dependency>
+            <groupId>com.cup</groupId>
+            <artifactId>cup</artifactId>
+            <version>11.0</version>
+        </dependency>
+        
+    </dependencies>
+    
+
 </project>

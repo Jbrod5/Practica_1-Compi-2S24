@@ -5,7 +5,7 @@
 
 package com.jbrod.graficador.analizadores;
 
-import java_cup.runtime;
+import java_cup.runtime.*;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -297,7 +297,7 @@ class CUP$Parser$actions {
 		int numberleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int numberright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object number = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = number; 
+		 RESULT = (double)number; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("num",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -312,7 +312,7 @@ class CUP$Parser$actions {
 		int n2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int n2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object n2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = n1 * n2; 
+		 RESULT = (double)n1 * (double)n2; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("num",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -327,7 +327,7 @@ class CUP$Parser$actions {
 		int n2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int n2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object n2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = n1 / n2; 
+		 RESULT = (double)n1 / (double)n2; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("num",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -339,7 +339,7 @@ class CUP$Parser$actions {
 		int numberleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int numberright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object number = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = number; 
+		 RESULT = (double)number; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("num",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -354,7 +354,7 @@ class CUP$Parser$actions {
 		int n2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int n2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object n2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = n1 + n2; 
+		 RESULT = (double)n1 + (double)n2; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("num",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -369,7 +369,7 @@ class CUP$Parser$actions {
 		int n2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int n2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object n2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = n1 - n2; 
+		 RESULT = (double)n1 - (double)n2; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("num",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -639,7 +639,7 @@ class CUP$Parser$actions {
 		int ordenleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int ordenright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object orden = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 System.outl.printf ("Animare el objeto anterior de forma: %s| hacia x: %.2f   y: %.2f | orden: %.2f", tipo, destinox, destinoy, orden); 
+		 System.out.printf ("Animare el objeto anterior de forma: %s| hacia x: %.2f   y: %.2f | orden: %.2f", tipo, destinox, destinoy, orden); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("animar",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

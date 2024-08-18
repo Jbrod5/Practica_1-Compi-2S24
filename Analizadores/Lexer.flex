@@ -76,7 +76,7 @@ WhiteSpaceOp ={WhiteSpace}*
     }
 
     private void error(String message){
-        System.out.println("Error en la linea: " + (yyline + 1), " columna: " + (yycolumn + 1) + " : " + message);
+        System.out.println("Error en la linea: " + (yyline + 1) + " columna: " + (yycolumn + 1) + " : " + message);
     }
     
 %}
