@@ -46,8 +46,8 @@ public class Parser extends java_cup.runtime.lr_parser {
     "\004\003\000\002\004\003\000\002\004\003\000\002\004" +
     "\003\000\002\004\003\000\002\004\003\000\002\004\003" +
     "\000\002\004\003\000\002\005\004\000\002\006\016\000" +
-    "\002\006\016\000\002\006\020\000\002\006\020\000\002" +
-    "\006\022\000\002\007\016\000\002\010\003\000\002\010" +
+    "\002\006\020\000\002\006\020\000\002\006\022\000\002" +
+    "\006\016\000\002\007\016\000\002\010\003\000\002\010" +
     "\003" });
 
   /** Access to production table. */
@@ -57,7 +57,7 @@ public class Parser extends java_cup.runtime.lr_parser {
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
     "\000\160\000\006\027\005\032\004\001\002\000\014\025" +
-    "\051\033\050\034\052\035\045\036\046\001\002\000\004" +
+    "\051\033\050\034\052\035\045\036\047\001\002\000\004" +
     "\030\014\001\002\000\010\002\ufffd\027\005\032\004\001" +
     "\002\000\010\002\ufffe\027\005\032\004\001\002\000\004" +
     "\002\011\001\002\000\004\002\001\001\002\000\004\002" +
@@ -82,8 +82,8 @@ public class Parser extends java_cup.runtime.lr_parser {
     "\032\010\030\013\042\001\002\000\006\004\023\011\025" +
     "\001\002\000\014\005\027\006\033\007\032\010\030\012" +
     "\044\001\002\000\010\002\uffe7\027\uffe7\032\uffe7\001\002" +
-    "\000\004\011\146\001\002\000\004\011\127\001\002\000" +
-    "\010\002\uffed\027\uffed\032\uffed\001\002\000\004\011\114" +
+    "\000\004\011\146\001\002\000\010\002\uffed\027\uffed\032" +
+    "\uffed\001\002\000\004\011\127\001\002\000\004\011\114" +
     "\001\002\000\004\011\077\001\002\000\004\011\053\001" +
     "\002\000\004\037\054\001\002\000\004\013\055\001\002" +
     "\000\006\004\023\011\025\001\002\000\014\005\027\006" +
@@ -91,13 +91,13 @@ public class Parser extends java_cup.runtime.lr_parser {
     "\011\025\001\002\000\014\005\027\006\033\007\032\010" +
     "\030\013\061\001\002\000\006\004\023\011\025\001\002" +
     "\000\014\005\027\006\033\007\032\010\030\013\063\001" +
-    "\002\000\024\014\075\015\071\016\067\017\074\020\070" +
+    "\002\000\024\014\075\015\071\016\070\017\074\020\067" +
     "\021\072\022\064\023\073\024\065\001\002\000\004\012" +
     "\ufff0\001\002\000\004\012\uffee\001\002\000\004\012\076" +
-    "\001\002\000\004\012\ufff4\001\002\000\004\012\ufff2\001" +
+    "\001\002\000\004\012\ufff2\001\002\000\004\012\ufff4\001" +
     "\002\000\004\012\ufff5\001\002\000\004\012\ufff1\001\002" +
     "\000\004\012\uffef\001\002\000\004\012\ufff3\001\002\000" +
-    "\004\012\ufff6\001\002\000\010\002\uffeb\027\uffeb\032\uffeb" +
+    "\004\012\ufff6\001\002\000\010\002\uffec\027\uffec\032\uffec" +
     "\001\002\000\004\037\100\001\002\000\004\013\101\001" +
     "\002\000\006\004\023\011\025\001\002\000\014\005\027" +
     "\006\033\007\032\010\030\013\103\001\002\000\006\004" +
@@ -106,18 +106,18 @@ public class Parser extends java_cup.runtime.lr_parser {
     "\002\000\014\005\027\006\033\007\032\010\030\013\107" +
     "\001\002\000\006\004\023\011\025\001\002\000\014\005" +
     "\027\006\033\007\032\010\030\013\111\001\002\000\024" +
-    "\014\075\015\071\016\067\017\074\020\070\021\072\022" +
+    "\014\075\015\071\016\070\017\074\020\067\021\072\022" +
     "\064\023\073\024\065\001\002\000\004\012\113\001\002" +
-    "\000\010\002\uffe9\027\uffe9\032\uffe9\001\002\000\004\037" +
+    "\000\010\002\uffea\027\uffea\032\uffea\001\002\000\004\037" +
     "\115\001\002\000\004\013\116\001\002\000\006\004\023" +
     "\011\025\001\002\000\014\005\027\006\033\007\032\010" +
     "\030\013\120\001\002\000\006\004\023\011\025\001\002" +
     "\000\014\005\027\006\033\007\032\010\030\013\122\001" +
     "\002\000\006\004\023\011\025\001\002\000\014\005\027" +
     "\006\033\007\032\010\030\013\124\001\002\000\024\014" +
-    "\075\015\071\016\067\017\074\020\070\021\072\022\064" +
+    "\075\015\071\016\070\017\074\020\067\021\072\022\064" +
     "\023\073\024\065\001\002\000\004\012\126\001\002\000" +
-    "\010\002\uffec\027\uffec\032\uffec\001\002\000\004\037\130" +
+    "\010\002\uffe8\027\uffe8\032\uffe8\001\002\000\004\037\130" +
     "\001\002\000\004\013\131\001\002\000\006\004\023\011" +
     "\025\001\002\000\014\005\027\006\033\007\032\010\030" +
     "\013\133\001\002\000\006\004\023\011\025\001\002\000" +
@@ -127,9 +127,9 @@ public class Parser extends java_cup.runtime.lr_parser {
     "\011\025\001\002\000\014\005\027\006\033\007\032\010" +
     "\030\013\141\001\002\000\006\004\023\011\025\001\002" +
     "\000\014\005\027\006\033\007\032\010\030\013\143\001" +
-    "\002\000\024\014\075\015\071\016\067\017\074\020\070" +
+    "\002\000\024\014\075\015\071\016\070\017\074\020\067" +
     "\021\072\022\064\023\073\024\065\001\002\000\004\012" +
-    "\145\001\002\000\010\002\uffe8\027\uffe8\032\uffe8\001\002" +
+    "\145\001\002\000\010\002\uffe9\027\uffe9\032\uffe9\001\002" +
     "\000\004\037\147\001\002\000\004\013\150\001\002\000" +
     "\006\004\023\011\025\001\002\000\014\005\027\006\033" +
     "\007\032\010\030\013\152\001\002\000\006\004\023\011" +
@@ -138,9 +138,9 @@ public class Parser extends java_cup.runtime.lr_parser {
     "\014\005\027\006\033\007\032\010\030\013\156\001\002" +
     "\000\006\004\023\011\025\001\002\000\014\005\027\006" +
     "\033\007\032\010\030\013\160\001\002\000\024\014\075" +
-    "\015\071\016\067\017\074\020\070\021\072\022\064\023" +
+    "\015\071\016\070\017\074\020\067\021\072\022\064\023" +
     "\073\024\065\001\002\000\004\012\162\001\002\000\010" +
-    "\002\uffea\027\uffea\032\uffea\001\002" });
+    "\002\uffeb\027\uffeb\032\uffeb\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -149,7 +149,7 @@ public class Parser extends java_cup.runtime.lr_parser {
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
     "\000\160\000\010\002\007\005\006\007\005\001\001\000" +
-    "\004\006\046\001\001\000\002\001\001\000\010\002\012" +
+    "\004\006\045\001\001\000\002\001\001\000\010\002\012" +
     "\005\006\007\005\001\001\000\010\002\011\005\006\007" +
     "\005\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
@@ -558,32 +558,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // figura ::= CIRCULO PARA IDENTIFICADOR COMA num COMA num COMA num COMA color PARC 
-            {
-              Object RESULT =null;
-		int nombreleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)).left;
-		int nombreright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)).right;
-		Object nombre = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-9)).value;
-		int posxleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).left;
-		int posxright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).right;
-		Object posx = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-7)).value;
-		int posyleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
-		int posyright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).right;
-		Object posy = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
-		int radioleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
-		int radioright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
-		Object radio = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
-		int colorleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
-		int colorright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		Object color = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 System.out.printf ("Graficare un CIRCULO llamado: + %s | posx: %.2f posy: %.2f  | radio: %.2f color: %s %n %n", nombre, posx, posy, radio, color );
-            vista.agregarFigura(new Circulo((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)radio), obtenerColor((String)color))); 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("figura",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
-            }
-          return CUP$Parser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // figura ::= CUADRADO PARA IDENTIFICADOR COMA num COMA num COMA num COMA color PARC 
+          case 21: // figura ::= CUADRADO PARA IDENTIFICADOR COMA num COMA num COMA num COMA color PARC 
             {
               Object RESULT =null;
 		int nombreleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)).left;
@@ -608,7 +583,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // figura ::= RECTANGULO PARA IDENTIFICADOR COMA num COMA num COMA num COMA num COMA color PARC 
+          case 22: // figura ::= RECTANGULO PARA IDENTIFICADOR COMA num COMA num COMA num COMA num COMA color PARC 
             {
               Object RESULT =null;
 		int nombreleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)).left;
@@ -636,7 +611,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // figura ::= LINEA PARA IDENTIFICADOR COMA num COMA num COMA num COMA num COMA color PARC 
+          case 23: // figura ::= LINEA PARA IDENTIFICADOR COMA num COMA num COMA num COMA num COMA color PARC 
             {
               Object RESULT =null;
 		int nombreleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)).left;
@@ -664,7 +639,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // figura ::= POLIGONO PARA IDENTIFICADOR COMA num COMA num COMA num COMA num COMA num COMA color PARC 
+          case 24: // figura ::= POLIGONO PARA IDENTIFICADOR COMA num COMA num COMA num COMA num COMA num COMA color PARC 
             {
               Object RESULT =null;
 		int nombreleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-13)).left;
@@ -691,6 +666,31 @@ class CUP$Parser$actions {
 		 System.out.printf ("Graficare un POLIGONO llamado: + %s | posx: %.2f posy: %.2f  | lados: %.2f ancho: %.2f alto: %.2f color: %s %n %n", nombre, posx, posy, cantidad_lados, ancho, alto, color );
             vista.agregarFigura(new Poligono((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)cantidad_lados), (int)Math.round((double)ancho), (int)Math.round((double)alto), obtenerColor((String)color))); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("figura",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-15)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 25: // figura ::= CIRCULO PARA IDENTIFICADOR COMA num COMA num COMA num COMA color PARC 
+            {
+              Object RESULT =null;
+		int nombreleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)).left;
+		int nombreright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)).right;
+		Object nombre = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-9)).value;
+		int posxleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).left;
+		int posxright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).right;
+		Object posx = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-7)).value;
+		int posyleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
+		int posyright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).right;
+		Object posy = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
+		int radioleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
+		int radioright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
+		Object radio = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		int colorleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int colorright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		Object color = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		 System.out.printf ("Graficare un CIRCULO llamado: + %s | posx: %.2f posy: %.2f  | radio: %.2f color: %s %n %n", nombre, posx, posy, radio, color );
+            vista.agregarFigura(new Circulo((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)radio), obtenerColor((String)color))); 
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("figura",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 

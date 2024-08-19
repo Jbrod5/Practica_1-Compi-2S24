@@ -96,16 +96,25 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
     }
     
     public void dibujarGraficos(){
-        pnlGraficos.repaint();
+        ////pnlGraficos.repaint();
+        pnlGraficos.paint(pnlGraficos.getGraphics());
         for (Grafico grafico : graficos) {
             grafico.establecerGrafico(this);
+            System.out.println(grafico);
+            
+            //dibujarLinea(0, 0, 0, 0, Color.black);
         }
     }
     
     public void dibujarLinea(int x1, int y1, int x2, int y2, Color color){
-        /*Graphics g = pnlGraficos.getGraphics();
+        Graphics g = pnlGraficos.getGraphics();
         //pnlGraficos.paint(g);
         g.setColor(color);
+        Random random = new Random();
+        x1 = random.nextInt(300)+1;
+        y1 = random.nextInt(300)+1;
+        x2 = random.nextInt(300)+1;
+        y2 = random.nextInt(300)+1;
         //x1, y1, x2, y2
         g.drawLine(x1, y1, x2, y2);
         //pnlGraficos.paint(g);*/
@@ -257,7 +266,10 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
         
         //Limpiar la lista de graficos
         graficos = new LinkedList<>();
+        graficos.clear();
         //Parsear
+        instanciarGraficos();
+        dibujarGraficos();
     }//GEN-LAST:event_btnCompilarActionPerformed
 
     private void guardarContenido(){
