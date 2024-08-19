@@ -1,8 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.jbrod.graficador.ui;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -10,13 +14,48 @@ package com.jbrod.graficador.ui;
  */
 public class VistaDeTrabajo extends javax.swing.JPanel {
 
-    /**
-     * Creates new form VistaDeTrabajo
-     */
-    public VistaDeTrabajo() {
+    private VentanaPrincipal principal; 
+    private String nombreArchivo; 
+    private String rutaArchivo; 
+    private File archivo; 
+    
+    public VistaDeTrabajo(VentanaPrincipal principal) {
         initComponents();
+        this.principal = principal; 
+    }
+    
+    public VistaDeTrabajo(VentanaPrincipal principal, String ruta){
+        initComponents();
+        this.principal = principal; 
+        
+        this.rutaArchivo = ruta; 
+        archivo = new File(ruta);
+        nombreArchivo = archivo.getName();
+        
+        try(BufferedReader reader = new BufferedReader(new FileReader(archivo))){
+            StringBuilder contenido = new StringBuilder();
+            String linea; 
+            while((linea = reader.readLine()) != null){
+                contenido.append(linea).append("\n");
+            }
+            
+            txpnCodigo.setText(contenido.toString());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,19 +65,136 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnCompilar = new javax.swing.JButton();
+        btnCerrar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txpnCodigo = new javax.swing.JTextPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        pnlGraficos = new javax.swing.JPanel();
+
+        btnCompilar.setText("Compilar");
+
+        btnCerrar.setText("Cerrar");
+        btnCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarActionPerformed(evt);
+            }
+        });
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder("Codigo"));
+        jScrollPane1.setViewportView(txpnCodigo);
+
+        jSplitPane1.setLeftComponent(jScrollPane1);
+
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("Graficos"));
+
+        javax.swing.GroupLayout pnlGraficosLayout = new javax.swing.GroupLayout(pnlGraficos);
+        pnlGraficos.setLayout(pnlGraficosLayout);
+        pnlGraficosLayout.setHorizontalGroup(
+            pnlGraficosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 570, Short.MAX_VALUE)
+        );
+        pnlGraficosLayout.setVerticalGroup(
+            pnlGraficosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 499, Short.MAX_VALUE)
+        );
+
+        jScrollPane2.setViewportView(pnlGraficos);
+
+        jSplitPane1.setRightComponent(jScrollPane2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnCompilar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGuardar)
+                .addGap(3, 3, 3)
+                .addComponent(btnCerrar)
+                .addContainerGap())
+            .addComponent(jSplitPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCompilar)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnCerrar))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        // TODO add your handling code here:
+        principal.cerrarPestana(this);
+    }//GEN-LAST:event_btnCerrarActionPerformed
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // Si tiene una ruta, solamente guardar
+        if(rutaArchivo != null && !rutaArchivo.isEmpty()){
+            guardarContenido();
+        }else{
+            //Obtener la ruta donde guardar
+            JFileChooser fileChooser = new JFileChooser();
+            // Mostrar el cuadro de diálogo para abrir un archivo
+            int returnValue = fileChooser.showOpenDialog(null);
+            // Verificar si el usuario seleccionó un archivo
+            if (returnValue == JFileChooser.APPROVE_OPTION) {
+                // Obtener el archivo seleccionado
+                File selectedFile = fileChooser.getSelectedFile();
+                // Obtener la ruta del archivo
+                rutaArchivo = selectedFile.getAbsolutePath();
+                 
+                //Agregar la vista
+                principal.remove(this);
+                nombreArchivo = selectedFile.getName();
+                principal.agregarPestana(this, nombreArchivo);
+            
+                System.out.println("Ruta del archivo seleccionado: " + rutaArchivo);
+                guardarContenido();
+            } else {
+                System.out.println("No se seleccionó ningún archivo.");
+            }
+            //Volver a cargar la ventana con el titulo
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void guardarContenido(){
+        
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaArchivo))) {
+            // Escribir el nuevo contenido en el archivo
+            writer.write(txpnCodigo.getText());
+            System.out.println("Contenido reemplazado exitosamente.");
+        } catch (IOException e) {
+            System.err.println("Ocurrió un error al escribir en el archivo: " + e.getMessage());
+        }
+        
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnCompilar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JPanel pnlGraficos;
+    private javax.swing.JTextPane txpnCodigo;
     // End of variables declaration//GEN-END:variables
 }
