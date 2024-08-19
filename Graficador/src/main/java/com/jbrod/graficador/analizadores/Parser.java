@@ -6,6 +6,14 @@
 package com.jbrod.graficador.analizadores;
 
 import java_cup.runtime.*;
+import com.jbrod.graficador.graficos.Grafico;
+import com.jbrod.graficador.graficos.Circulo;
+import com.jbrod.graficador.graficos.Cuadrado;
+import com.jbrod.graficador.graficos.Rectangulo;
+import com.jbrod.graficador.graficos.Linea;
+import com.jbrod.graficador.graficos.Poligono;
+import com.jbrod.graficador.ui.VistaDeTrabajo;
+import java.awt.Color;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -222,8 +230,16 @@ public class Parser extends java_cup.runtime.lr_parser {
 
 
     // Conectar el parser al escaner
-    public Parser(Lexer lex){
+    private VistaDeTrabajo vista;
+
+    public Parser(Lexer lex, VistaDeTrabajo vistaTrab){
         super(lex);
+        this.vista = vistaTrab;
+        System.out.println("Vista: " + vista); 
+    }
+    public void setVista(VistaDeTrabajo vistaTrab){
+        this.vista = vistaTrab;
+        System.out.println("Vistados: " + vista);
     }
 
     public void syntax_error(Symbol cur_token) {
@@ -234,6 +250,31 @@ public class Parser extends java_cup.runtime.lr_parser {
             System.out.println("Ya no se esperaba ningun simbolo");
         }
 
+    }
+
+    public Color obtenerColor(String color){
+        switch (color.toLowerCase()) {
+            case "azul":
+                return Color.BLUE;
+            case "rojo":
+                return Color.RED;
+            case "amarillo":
+                return Color.YELLOW;
+            case "verde":
+                return Color.GREEN;
+            case "morado":
+                return new Color(128, 0, 128); // Color morado personalizado
+            case "naranja":
+                return new Color(255, 165, 0); // Color naranja personalizado
+            case "turquesa":
+                return new Color(64, 224, 208); // Color turquesa personalizado
+            case "negro":
+                return Color.BLACK;
+            case "cafe":
+                return new Color(139, 69, 19); // Color café personalizado
+            default:
+                return Color.BLACK; // Retorna negro si no hay coincidencia
+        }
     }
     /*public void unrecovered_syntax_error(Symbol cur_token) {
         System.out.println("Error irrecuperable sobrecargado");
@@ -536,6 +577,7 @@ class CUP$Parser$actions {
 		int colorright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object color = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 System.out.printf ("Graficare un CIRCULO llamado: + %s | posx: %.2f posy: %.2f  | radio: %.2f color: %s %n %n", nombre, posx, posy, radio, color );
+            vista.agregarFigura(new Circulo((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)radio), obtenerColor((String)color))); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("figura",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -560,6 +602,7 @@ class CUP$Parser$actions {
 		int colorright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object color = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 System.out.printf ("Graficare un CUADRADO llamado: + %s | posx: %.2f posy: %.2f  | lado: %.2f color: %s %n %n", nombre, posx, posy, tam_lado, color );
+            vista.agregarFigura(new Cuadrado((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)tam_lado), obtenerColor((String)color))); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("figura",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -587,6 +630,7 @@ class CUP$Parser$actions {
 		int colorright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object color = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 System.out.printf ("Graficare un RECTANGULO llamado: + %s | posx: %.2f posy: %.2f  | ancho: %.2f alto: %.2f color: %s %n %n", nombre, posx, posy, ancho, alto, color );
+            vista.agregarFigura(new Rectangulo((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)ancho), (int)Math.round((double)alto), obtenerColor((String)color))); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("figura",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-13)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -614,6 +658,7 @@ class CUP$Parser$actions {
 		int colorright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object color = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 System.out.printf ("Graficare una LINEA llamada: + %s | posx1: %.2f posy1: %.2f | posx2: %.2f posy2: %.2f  | color: %s %n %n", nombre, posx1, posy1, posx2, posy2, color );
+            vista.agregarFigura(new Linea((String)nombre, (int)Math.round((double)posx1), (int)Math.round((double)posy1), (int)Math.round((double)posx2), (int)Math.round((double)posy2), obtenerColor((String)color))); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("figura",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-13)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -644,6 +689,7 @@ class CUP$Parser$actions {
 		int colorright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object color = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 System.out.printf ("Graficare un POLIGONO llamado: + %s | posx: %.2f posy: %.2f  | lados: %.2f ancho: %.2f alto: %.2f color: %s %n %n", nombre, posx, posy, cantidad_lados, ancho, alto, color );
+            vista.agregarFigura(new Poligono((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)cantidad_lados), (int)Math.round((double)ancho), (int)Math.round((double)alto), obtenerColor((String)color))); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("figura",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-15)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

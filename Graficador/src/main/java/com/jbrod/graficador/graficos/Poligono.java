@@ -28,7 +28,10 @@ public class Poligono extends Grafico{
         
         this.ancho = ancho; 
         this.alto = alto; 
-        this.color = color; 
+        this.color = color;
+        
+        cooX = new int[nLados];
+        cooY = new int [nLados];
         
         for (int i = 0; i < nLados; i++) {
             cooX[i] = (int) (posx + ancho * Math.cos(2 * Math.PI * i / nLados)); // Coordenada x

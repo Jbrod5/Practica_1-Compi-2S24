@@ -1,5 +1,8 @@
 package com.jbrod.graficador.ui;
 
+import com.jbrod.graficador.analizadores.Lexer;
+import com.jbrod.graficador.analizadores.Parser;
+import com.jbrod.graficador.graficos.Grafico;
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,7 +13,11 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 
 import java.awt.Graphics;
+import java.io.StringReader;
+import java.util.LinkedList;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,9 +29,12 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
     private String nombreArchivo; 
     private String rutaArchivo; 
     private File archivo; 
+    private LinkedList<Grafico> graficos;
     
     public VistaDeTrabajo(VentanaPrincipal principal) {
         initComponents();
+        graficos = new LinkedList<>();
+        
         this.principal = principal;
         Graphics g = pnlGraficos.getGraphics();
         pnlGraficos.paint(g);
@@ -61,13 +71,44 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
     
     
     // Metodos para graficar figuras
+    public void agregarFigura(Grafico grafico){
+        graficos.add(grafico);  
+    }
+    
+    public void instanciarGraficos(){
+        StringReader reader = new StringReader(txpnCodigo.getText());
+        Lexer lexer = new Lexer(reader);
+        Parser parser = new Parser(lexer, this);
+        parser.setVista(this);
+        
+        try {
+            //Si no hay errores, dibujar
+            parser.parse();
+            dibujarGraficos();
+        } catch (Exception ex) {
+            // Si hay errores, no hacer nada
+            // Se dibuja de momento para pruebas
+            Logger.getLogger(VistaDeTrabajo.class.getName()).log(Level.SEVERE, null, ex);
+            dibujarGraficos();
+        }
+        
+        
+    }
+    
+    public void dibujarGraficos(){
+        pnlGraficos.repaint();
+        for (Grafico grafico : graficos) {
+            grafico.establecerGrafico(this);
+        }
+    }
+    
     public void dibujarLinea(int x1, int y1, int x2, int y2, Color color){
-        Graphics g = pnlGraficos.getGraphics();
+        /*Graphics g = pnlGraficos.getGraphics();
         //pnlGraficos.paint(g);
         g.setColor(color);
         //x1, y1, x2, y2
         g.drawLine(x1, y1, x2, y2);
-        //pnlGraficos.paint(g);
+        //pnlGraficos.paint(g);*/
         
     }
     
@@ -207,12 +248,16 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
 
     private void btnCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompilarActionPerformed
         // TODO add your handling code here:
-        Random random = new Random();
+        /*Random random = new Random();
         int x1 = random.nextInt(300)+1;
         int y1 = random.nextInt(300)+1;
         int x2 = random.nextInt(300)+1;
         int y2 = random.nextInt(300)+1;
-        dibujarLinea(x1, y1, x2, y2, Color.black);
+        dibujarLinea(x1, y1, x2, y2, Color.black);*/
+        
+        //Limpiar la lista de graficos
+        graficos = new LinkedList<>();
+        //Parsear
     }//GEN-LAST:event_btnCompilarActionPerformed
 
     private void guardarContenido(){
