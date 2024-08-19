@@ -1,5 +1,6 @@
 package com.jbrod.graficador.ui;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,6 +8,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JFileChooser;
+
+import java.awt.Graphics;
+import java.util.Random;
 
 /**
  *
@@ -21,11 +25,16 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
     
     public VistaDeTrabajo(VentanaPrincipal principal) {
         initComponents();
-        this.principal = principal; 
+        this.principal = principal;
+        Graphics g = pnlGraficos.getGraphics();
+        pnlGraficos.paint(g);
     }
     
     public VistaDeTrabajo(VentanaPrincipal principal, String ruta){
         initComponents();
+        Graphics g = pnlGraficos.getGraphics();
+        pnlGraficos.paint(g);
+        
         this.principal = principal; 
         
         this.rutaArchivo = ruta; 
@@ -45,6 +54,23 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
         }
         
     }
+    
+    
+    
+    
+    
+    
+    // Metodos para graficar figuras
+    public void dibujarLinea(int x1, int y1, int x2, int y2, Color color){
+        Graphics g = pnlGraficos.getGraphics();
+        //pnlGraficos.paint(g);
+        g.setColor(color);
+        //x1, y1, x2, y2
+        g.drawLine(x1, y1, x2, y2);
+        //pnlGraficos.paint(g);
+        
+    }
+    
 
     
     
@@ -75,6 +101,11 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
         pnlGraficos = new javax.swing.JPanel();
 
         btnCompilar.setText("Compilar");
+        btnCompilar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompilarActionPerformed(evt);
+            }
+        });
 
         btnCerrar.setText("Cerrar");
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -174,6 +205,16 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void btnCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompilarActionPerformed
+        // TODO add your handling code here:
+        Random random = new Random();
+        int x1 = random.nextInt(300)+1;
+        int y1 = random.nextInt(300)+1;
+        int x2 = random.nextInt(300)+1;
+        int y2 = random.nextInt(300)+1;
+        dibujarLinea(x1, y1, x2, y2, Color.black);
+    }//GEN-LAST:event_btnCompilarActionPerformed
+
     private void guardarContenido(){
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaArchivo))) {
@@ -184,6 +225,10 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
             System.err.println("Ocurrió un error al escribir en el archivo: " + e.getMessage());
         }
         
+    }
+    
+    public Graphics obtenerGrafico(){
+        return pnlGraficos.getGraphics();
     }
     
     
