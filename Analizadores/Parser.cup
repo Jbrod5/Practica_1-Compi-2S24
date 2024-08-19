@@ -142,10 +142,6 @@ color ::= CAFE:c     {: RESULT = "CAFE"     ;:};
 //Graficos, ejecutar las graficas en figura
 graficar ::= GRAFICAR figura; 
 
-// nombre, posx, posy, radio, color 
-figura ::= CIRCULO      PARA IDENTIFICADOR:nombre COMA num:posx COMA num:posy COMA num:radio COMA color:color PARC
-            {: System.out.printf ("Graficare un CIRCULO llamado: + %s | posx: %.2f posy: %.2f  | radio: %.2f color: %s %n %n", nombre, posx, posy, radio, color );
-            vista.agregarFigura(new Circulo((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)radio), obtenerColor((String)color))); :};
 // nombre, posx, posy, tamaño lado, color 
 figura ::= CUADRADO     PARA IDENTIFICADOR:nombre COMA num:posx COMA num:posy COMA num:tam_lado  COMA color:color PARC
             {: System.out.printf ("Graficare un CUADRADO llamado: + %s | posx: %.2f posy: %.2f  | lado: %.2f color: %s %n %n", nombre, posx, posy, tam_lado, color );
@@ -163,6 +159,10 @@ figura ::= POLIGONO     PARA IDENTIFICADOR:nombre COMA num:posx COMA num:posy CO
             {: System.out.printf ("Graficare un POLIGONO llamado: + %s | posx: %.2f posy: %.2f  | lados: %.2f ancho: %.2f alto: %.2f color: %s %n %n", nombre, posx, posy, cantidad_lados, ancho, alto, color );
             vista.agregarFigura(new Poligono((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)cantidad_lados), (int)Math.round((double)ancho), (int)Math.round((double)alto), obtenerColor((String)color))); :};
 
+// nombre, posx, posy, radio, color 
+figura ::= CIRCULO      PARA IDENTIFICADOR:nombre COMA num:posx COMA num:posy COMA num:radio COMA color:color PARC
+            {: System.out.printf ("Graficare un CIRCULO llamado: + %s | posx: %.2f posy: %.2f  | radio: %.2f color: %s %n %n", nombre, posx, posy, radio, color );
+            vista.agregarFigura(new Circulo((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)radio), obtenerColor((String)color))); :};
 
 // Animaciones: tipo, destinox, destinoy, orden 
 animar ::= ANIMAR OBJETO ANTERIOR PARA tipo_animacion:tipo COMA num:destinox COMA num:destinoy COMA num:orden PARC

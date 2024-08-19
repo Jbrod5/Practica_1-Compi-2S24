@@ -57,7 +57,7 @@ rectangulo = "rectangulo"
 poligono = "poligono"
 
 // Identificadores
-identificador = [a-zA-Z_][a-zA-Z0-9]*
+identificador = [a-zA-Z_][a-zA-Z0-9_]*
 
 LineTerminator = \r|\n|\r\n
 WhiteSpace = {LineTerminator} | [ \t\f]
