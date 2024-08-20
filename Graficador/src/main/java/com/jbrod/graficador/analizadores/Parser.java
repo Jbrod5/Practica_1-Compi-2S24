@@ -14,6 +14,9 @@ import com.jbrod.graficador.graficos.Linea;
 import com.jbrod.graficador.graficos.Poligono;
 import com.jbrod.graficador.ui.VistaDeTrabajo;
 import java.awt.Color;
+import com.jbrod.graficador.reportes.ReporteColores;
+import com.jbrod.graficador.reportes.ReporteObjetos;
+import com.jbrod.graficador.reportes.ReporteAnimaciones;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -232,10 +235,20 @@ public class Parser extends java_cup.runtime.lr_parser {
     // Conectar el parser al escaner
     private VistaDeTrabajo vista;
 
+    private ReporteColores reporteColores;
+    private ReporteObjetos reporteObjetos;
+    private ReporteAnimaciones reporteAnimaciones; 
+
+
+
     public Parser(Lexer lex, VistaDeTrabajo vistaTrab){
         super(lex);
         this.vista = vistaTrab;
-        System.out.println("Vista: " + vista); 
+        System.out.println("Vista: " + vista);
+
+        reporteColores = new ReporteColores();
+        reporteObjetos = new ReporteObjetos();
+        reporteAnimaciones = new ReporteAnimaciones(); 
     }
     public void setVista(VistaDeTrabajo vistaTrab){
         this.vista = vistaTrab;
@@ -279,6 +292,16 @@ public class Parser extends java_cup.runtime.lr_parser {
     /*public void unrecovered_syntax_error(Symbol cur_token) {
         System.out.println("Error irrecuperable sobrecargado");
     }*/
+
+    public ReporteColores obtenerReporteColores(){
+        return reporteColores;
+    }
+    public ReporteObjetos obtenerReporteObjetos(){
+        return reporteObjetos;
+    }
+    public ReporteAnimaciones obtenerReporteAnimaciones(){
+        return reporteAnimaciones;
+    }
 
 
 
@@ -447,7 +470,7 @@ class CUP$Parser$actions {
 		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = "AZUL"     ;
+		 RESULT = "AZUL"     ; reporteColores.aumentarAzul       ();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("color",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -459,7 +482,7 @@ class CUP$Parser$actions {
 		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = "ROJO"     ;
+		 RESULT = "ROJO"     ; reporteColores.aumentarRojo       ();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("color",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -471,7 +494,7 @@ class CUP$Parser$actions {
 		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = "AMARILLO" ;
+		 RESULT = "AMARILLO" ; reporteColores.aumentarAmarillo   ();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("color",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -483,7 +506,7 @@ class CUP$Parser$actions {
 		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = "VERDE"    ;
+		 RESULT = "VERDE"    ; reporteColores.aumentarVerde      ();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("color",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -495,7 +518,7 @@ class CUP$Parser$actions {
 		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = "MORADO"   ;
+		 RESULT = "MORADO"   ; reporteColores.aumentarMorado     ();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("color",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -507,7 +530,7 @@ class CUP$Parser$actions {
 		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = "NARANJA"  ;
+		 RESULT = "NARANJA"  ; reporteColores.aumentarNaranja    ();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("color",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -519,7 +542,7 @@ class CUP$Parser$actions {
 		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = "TURQUESA" ;
+		 RESULT = "TURQUESA" ; reporteColores.aumentarTurquesa   ();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("color",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -531,7 +554,7 @@ class CUP$Parser$actions {
 		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = "NEGRO"    ;
+		 RESULT = "NEGRO"    ; reporteColores.aumentarNegro      ();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("color",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -543,7 +566,7 @@ class CUP$Parser$actions {
 		int cleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int cright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object c = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = "CAFE"     ;
+		 RESULT = "CAFE"     ; reporteColores.aumentarCafe       ();
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("color",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -578,6 +601,7 @@ class CUP$Parser$actions {
 		Object color = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 System.out.printf ("Graficare un CUADRADO llamado: + %s | posx: %.2f posy: %.2f  | lado: %.2f color: %s %n %n", nombre, posx, posy, tam_lado, color );
             vista.agregarFigura(new Cuadrado((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)tam_lado), obtenerColor((String)color))); 
+            reporteObjetos.aumentarCuadrado(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("figura",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -606,6 +630,7 @@ class CUP$Parser$actions {
 		Object color = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 System.out.printf ("Graficare un RECTANGULO llamado: + %s | posx: %.2f posy: %.2f  | ancho: %.2f alto: %.2f color: %s %n %n", nombre, posx, posy, ancho, alto, color );
             vista.agregarFigura(new Rectangulo((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)ancho), (int)Math.round((double)alto), obtenerColor((String)color))); 
+            reporteObjetos.aumentarRectangulo(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("figura",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-13)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -634,6 +659,7 @@ class CUP$Parser$actions {
 		Object color = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 System.out.printf ("Graficare una LINEA llamada: + %s | posx1: %.2f posy1: %.2f | posx2: %.2f posy2: %.2f  | color: %s %n %n", nombre, posx1, posy1, posx2, posy2, color );
             vista.agregarFigura(new Linea((String)nombre, (int)Math.round((double)posx1), (int)Math.round((double)posy1), (int)Math.round((double)posx2), (int)Math.round((double)posy2), obtenerColor((String)color))); 
+            reporteObjetos.aumentarLinea(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("figura",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-13)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -665,6 +691,7 @@ class CUP$Parser$actions {
 		Object color = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 System.out.printf ("Graficare un POLIGONO llamado: + %s | posx: %.2f posy: %.2f  | lados: %.2f ancho: %.2f alto: %.2f color: %s %n %n", nombre, posx, posy, cantidad_lados, ancho, alto, color );
             vista.agregarFigura(new Poligono((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)cantidad_lados), (int)Math.round((double)ancho), (int)Math.round((double)alto), obtenerColor((String)color))); 
+            reporteObjetos.aumentarPoligono(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("figura",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-15)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -690,6 +717,7 @@ class CUP$Parser$actions {
 		Object color = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
 		 System.out.printf ("Graficare un CIRCULO llamado: + %s | posx: %.2f posy: %.2f  | radio: %.2f color: %s %n %n", nombre, posx, posy, radio, color );
             vista.agregarFigura(new Circulo((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)radio), obtenerColor((String)color))); 
+            reporteObjetos.aumentarCirculo(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("figura",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -720,7 +748,7 @@ class CUP$Parser$actions {
           case 27: // tipo_animacion ::= LINEA 
             {
               Object RESULT =null;
-		 RESULT = true; 
+		 RESULT = true;  reporteAnimaciones.aumentarLinea(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("tipo_animacion",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -729,7 +757,7 @@ class CUP$Parser$actions {
           case 28: // tipo_animacion ::= CURVA 
             {
               Object RESULT =null;
-		 RESULT = false; 
+		 RESULT = false; reporteAnimaciones.aumentarCurva(); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("tipo_animacion",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

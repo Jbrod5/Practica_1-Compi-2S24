@@ -33,6 +33,9 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
     private LinkedList<Grafico> graficos;
     private Grafico ultimo; // Ultimo grafico agregado
     
+    
+    private Parser parser; 
+    
     public VistaDeTrabajo(VentanaPrincipal principal) {
         initComponents();
         graficos = new LinkedList<>();
@@ -90,7 +93,7 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
     public void instanciarGraficos(){
         StringReader reader = new StringReader(txpnCodigo.getText());
         Lexer lexer = new Lexer(reader);
-        Parser parser = new Parser(lexer, this);
+        parser = new Parser(lexer, this);
         parser.setVista(this);
         
         try {
@@ -181,6 +184,7 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         pnlGraficos = new javax.swing.JPanel();
         btnAnimar = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
 
         btnCompilar.setText("Compilar");
         btnCompilar.addActionListener(new java.awt.event.ActionListener() {
@@ -232,6 +236,13 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
             }
         });
 
+        btnReportes.setText("Reportes");
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -241,6 +252,8 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
                 .addComponent(btnCompilar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAnimar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnReportes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnGuardar)
                 .addGap(3, 3, 3)
@@ -257,7 +270,8 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
                     .addComponent(btnCompilar)
                     .addComponent(btnGuardar)
                     .addComponent(btnCerrar)
-                    .addComponent(btnAnimar))
+                    .addComponent(btnAnimar)
+                    .addComponent(btnReportes))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -319,6 +333,17 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
         ejecutarAnimaciones();
     }//GEN-LAST:event_btnAnimarActionPerformed
 
+    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
+        // TODO add your handling code here:
+        if(parser != null){
+            Reportes r = new Reportes(parser.obtenerReporteColores(),
+                                      parser.obtenerReporteObjetos(),
+                                      parser.obtenerReporteAnimaciones());
+            r.setVisible(true);
+        }
+        
+    }//GEN-LAST:event_btnReportesActionPerformed
+
     private void guardarContenido(){
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaArchivo))) {
@@ -341,6 +366,7 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnCompilar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnReportes;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;

@@ -9,7 +9,11 @@ import com.jbrod.graficador.graficos.Linea;
 import com.jbrod.graficador.graficos.Poligono;
 
 import com.jbrod.graficador.ui.VistaDeTrabajo;
-import java.awt.Color; 
+import java.awt.Color;
+
+import com.jbrod.graficador.reportes.ReporteColores;
+import com.jbrod.graficador.reportes.ReporteObjetos;
+import com.jbrod.graficador.reportes.ReporteAnimaciones;
 
 
 
@@ -18,10 +22,20 @@ parser code{:
     // Conectar el parser al escaner
     private VistaDeTrabajo vista;
 
+    private ReporteColores reporteColores;
+    private ReporteObjetos reporteObjetos;
+    private ReporteAnimaciones reporteAnimaciones; 
+
+
+
     public Parser(Lexer lex, VistaDeTrabajo vistaTrab){
         super(lex);
         this.vista = vistaTrab;
-        System.out.println("Vista: " + vista); 
+        System.out.println("Vista: " + vista);
+
+        reporteColores = new ReporteColores();
+        reporteObjetos = new ReporteObjetos();
+        reporteAnimaciones = new ReporteAnimaciones(); 
     }
     public void setVista(VistaDeTrabajo vistaTrab){
         this.vista = vistaTrab;
@@ -65,6 +79,16 @@ parser code{:
     /*public void unrecovered_syntax_error(Symbol cur_token) {
         System.out.println("Error irrecuperable sobrecargado");
     }*/
+
+    public ReporteColores obtenerReporteColores(){
+        return reporteColores;
+    }
+    public ReporteObjetos obtenerReporteObjetos(){
+        return reporteObjetos;
+    }
+    public ReporteAnimaciones obtenerReporteAnimaciones(){
+        return reporteAnimaciones;
+    }
 
 :}
 
@@ -126,15 +150,15 @@ num ::= num:n1 RESTA num:n2 {: RESULT = (double)n1 - (double)n2; :};
 
 // Colores
 //MODIFICAR: Retornar el color como se usa en la libreria, en exadecimal o etc
-color ::= AZUL:c     {: RESULT = "AZUL"     ;:}; 
-color ::= ROJO: c    {: RESULT = "ROJO"     ;:};
-color ::= AMARILLO:c {: RESULT = "AMARILLO" ;:};
-color ::= VERDE :c   {: RESULT = "VERDE"    ;:};
-color ::= MORADO:c   {: RESULT = "MORADO"   ;:};
-color ::= NARANJA:c  {: RESULT = "NARANJA"  ;:};
-color ::= TURQUESA:c {: RESULT = "TURQUESA" ;:};
-color ::= NEGRO:c    {: RESULT = "NEGRO"    ;:};
-color ::= CAFE:c     {: RESULT = "CAFE"     ;:};
+color ::= AZUL:c     {: RESULT = "AZUL"     ; reporteColores.aumentarAzul       ();:}; 
+color ::= ROJO: c    {: RESULT = "ROJO"     ; reporteColores.aumentarRojo       ();:};
+color ::= AMARILLO:c {: RESULT = "AMARILLO" ; reporteColores.aumentarAmarillo   ();:};
+color ::= VERDE :c   {: RESULT = "VERDE"    ; reporteColores.aumentarVerde      ();:};
+color ::= MORADO:c   {: RESULT = "MORADO"   ; reporteColores.aumentarMorado     ();:};
+color ::= NARANJA:c  {: RESULT = "NARANJA"  ; reporteColores.aumentarNaranja    ();:};
+color ::= TURQUESA:c {: RESULT = "TURQUESA" ; reporteColores.aumentarTurquesa   ();:};
+color ::= NEGRO:c    {: RESULT = "NEGRO"    ; reporteColores.aumentarNegro      ();:};
+color ::= CAFE:c     {: RESULT = "CAFE"     ; reporteColores.aumentarCafe       ();:};
 
 
 
@@ -145,24 +169,29 @@ graficar ::= GRAFICAR figura;
 // nombre, posx, posy, tamaño lado, color 
 figura ::= CUADRADO     PARA IDENTIFICADOR:nombre COMA num:posx COMA num:posy COMA num:tam_lado  COMA color:color PARC
             {: System.out.printf ("Graficare un CUADRADO llamado: + %s | posx: %.2f posy: %.2f  | lado: %.2f color: %s %n %n", nombre, posx, posy, tam_lado, color );
-            vista.agregarFigura(new Cuadrado((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)tam_lado), obtenerColor((String)color))); :};
+            vista.agregarFigura(new Cuadrado((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)tam_lado), obtenerColor((String)color))); 
+            reporteObjetos.aumentarCuadrado(); :};
 // nombre, posx, posy, ancho, alto, color 
 figura ::= RECTANGULO   PARA IDENTIFICADOR:nombre COMA num:posx COMA num:posy COMA num:ancho COMA num:alto COMA color:color PARC
             {: System.out.printf ("Graficare un RECTANGULO llamado: + %s | posx: %.2f posy: %.2f  | ancho: %.2f alto: %.2f color: %s %n %n", nombre, posx, posy, ancho, alto, color );
-            vista.agregarFigura(new Rectangulo((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)ancho), (int)Math.round((double)alto), obtenerColor((String)color))); :};
+            vista.agregarFigura(new Rectangulo((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)ancho), (int)Math.round((double)alto), obtenerColor((String)color))); 
+            reporteObjetos.aumentarRectangulo(); :};
 // nombre, posx1, posy1, posx2, posy2, color 
 figura ::= LINEA        PARA IDENTIFICADOR:nombre COMA num:posx1 COMA num:posy1 COMA num:posx2 COMA num:posy2 COMA color: color PARC
             {: System.out.printf ("Graficare una LINEA llamada: + %s | posx1: %.2f posy1: %.2f | posx2: %.2f posy2: %.2f  | color: %s %n %n", nombre, posx1, posy1, posx2, posy2, color );
-            vista.agregarFigura(new Linea((String)nombre, (int)Math.round((double)posx1), (int)Math.round((double)posy1), (int)Math.round((double)posx2), (int)Math.round((double)posy2), obtenerColor((String)color))); :};
+            vista.agregarFigura(new Linea((String)nombre, (int)Math.round((double)posx1), (int)Math.round((double)posy1), (int)Math.round((double)posx2), (int)Math.round((double)posy2), obtenerColor((String)color))); 
+            reporteObjetos.aumentarLinea(); :};
 // nombre, posx, posy, cantidad lados, ancho, alto, color 
 figura ::= POLIGONO     PARA IDENTIFICADOR:nombre COMA num:posx COMA num:posy COMA num:cantidad_lados COMA num:ancho COMA num:alto COMA color:color PARC
             {: System.out.printf ("Graficare un POLIGONO llamado: + %s | posx: %.2f posy: %.2f  | lados: %.2f ancho: %.2f alto: %.2f color: %s %n %n", nombre, posx, posy, cantidad_lados, ancho, alto, color );
-            vista.agregarFigura(new Poligono((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)cantidad_lados), (int)Math.round((double)ancho), (int)Math.round((double)alto), obtenerColor((String)color))); :};
+            vista.agregarFigura(new Poligono((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)cantidad_lados), (int)Math.round((double)ancho), (int)Math.round((double)alto), obtenerColor((String)color))); 
+            reporteObjetos.aumentarPoligono(); :};
 
 // nombre, posx, posy, radio, color 
 figura ::= CIRCULO      PARA IDENTIFICADOR:nombre COMA num:posx COMA num:posy COMA num:radio COMA color:color PARC
             {: System.out.printf ("Graficare un CIRCULO llamado: + %s | posx: %.2f posy: %.2f  | radio: %.2f color: %s %n %n", nombre, posx, posy, radio, color );
-            vista.agregarFigura(new Circulo((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)radio), obtenerColor((String)color))); :};
+            vista.agregarFigura(new Circulo((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)radio), obtenerColor((String)color))); 
+            reporteObjetos.aumentarCirculo(); :};
 
 
 
@@ -171,5 +200,5 @@ animar ::= ANIMAR OBJETO ANTERIOR PARA tipo_animacion:tipo COMA num:destinox COM
             {: System.out.printf ("Animare el objeto anterior de forma: | hacia x: %.2f   y: %.2f | orden: %.2f", destinox, destinoy, orden); 
                 vista.agregarAnimacionUltimaFigura((boolean)tipo, (int)Math.round((double)destinox), (int)Math.round((double)destinoy), (int)Math.round((double)orden)); :};
 
-tipo_animacion ::= LINEA{: RESULT = true; :};
-tipo_animacion ::= CURVA{: RESULT = false; :};
+tipo_animacion ::= LINEA{: RESULT = true;  reporteAnimaciones.aumentarLinea(); :};
+tipo_animacion ::= CURVA{: RESULT = false; reporteAnimaciones.aumentarCurva(); :};
