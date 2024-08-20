@@ -32,6 +32,7 @@ public abstract class Grafico {
         //Se ejecutaran 10 frames de la animacion
         if(contadorFrames == 0){
             //Calcular las nuevas x e y para 10 frames
+            System.out.println("ANIMANDO ---------------------------------");
             posxAnimacion = new int[10];
             posyAnimacion = new int[10];
             
@@ -97,6 +98,8 @@ public abstract class Grafico {
           posy = posyAnimacion[contadorFrames];
             System.out.println("X: " + posx);
             System.out.println("Y: " + posy);
+            System.out.println("XD: " + posxDestino);
+            System.out.println("YD: " + posyDestino);
           contadorFrames++;
 
         } else if(contadorFrames == 10){
