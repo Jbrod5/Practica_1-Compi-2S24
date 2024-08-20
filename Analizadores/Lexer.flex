@@ -17,7 +17,7 @@ import com.jbrod.graficador.reportes.ReporteErrores;
 
 //Numeros
 entero = [0-9]+
-decimal = entero "." entero
+decimal = [0-9]+"."[0-9]+
 
 //Operaciones
 mult = "*"
@@ -94,8 +94,9 @@ WhiteSpaceOp ={WhiteSpace}*
 /*  - - - - - - - - - - - - - - - - - REGLAS LEXICAS  - - - - - - - - - - - - - - - - - */
 
 /* numeros */
-{entero}  { return symbol(sym.NUMERO, Double.parseDouble(yytext())); }
 {decimal} { return symbol(sym.NUMERO, Double.parseDouble(yytext())); }
+{entero}  { return symbol(sym.NUMERO, Double.parseDouble(yytext() + ".0")); }
+
 
 /* operaciones / simbolos */
 {mult} {return symbol(sym.MULTIPLICACION); }
