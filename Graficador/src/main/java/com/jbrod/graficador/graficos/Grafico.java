@@ -13,7 +13,7 @@ public abstract class Grafico {
     protected Color color;
     private boolean animado; 
     private boolean lineal; 
-    private int orden;
+    private int orden = 0;
     
     private int frameActual = 0;
     private int contadorFrames = 0; 
@@ -71,6 +71,15 @@ public abstract class Grafico {
     }
     
     
+    
+    
+    public int obtenerOrden(){
+        return orden; 
+    }
+    
+    public void setOrden(int orden){
+        this.orden = orden; 
+    }
     
     
     

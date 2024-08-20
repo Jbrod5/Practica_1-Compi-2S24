@@ -26,11 +26,14 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import javax.swing.JPanel;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+
+import java.util.Comparator;
 
 /**
  *
@@ -99,6 +102,8 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
             ultimo.establecerDestino(x, y);
             ultimo.setAnimado(true);
             ultimo.setLineal(lineal);
+            
+            ultimo.setOrden(orden);
         }
         
     }
@@ -134,9 +139,25 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
         }
     }
     
-    
+    private void ordenarAnimacione(){
+        /*int n = graficos.size();
+        for (int i = 0; i < n-1; i++) {
+            for (int j = 0; j < n-1-i; j++) {
+                if(graficos.get(j).obtenerOrden() > graficos.get(j+1).obtenerOrden()){
+                    //intercambiar
+                    Grafico temp = graficos.get(j);
+                    graficos.remove(j);
+                    graficos.add(graficos.get(j+1), temp);
+                }
+            }
+            
+        }*/
+    }
     
     public void ejecutarAnimaciones(){
+        //Ordenar las animaciones
+        Collections.sort(graficos, Comparator.comparingInt(Grafico::obtenerOrden));
+        
         //pnlGraficos.paint(g);
         for (Grafico grafico : graficos) {
             while(grafico.isAnimado()){
@@ -150,6 +171,8 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
             }
         }
     }
+    
+    
     
     
     
