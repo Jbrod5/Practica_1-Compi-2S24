@@ -337,7 +337,8 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
         // TODO add your handling code here:
         if(parser != null){
-            Reportes r = new Reportes(parser.obtenerReporteColores(),
+            Reportes r = new Reportes(parser.obtenerReporteOperadores(),
+                                      parser.obtenerReporteColores(),
                                       parser.obtenerReporteObjetos(),
                                       parser.obtenerReporteAnimaciones(), 
                                       lexer.obtenerReporteErrores(), 

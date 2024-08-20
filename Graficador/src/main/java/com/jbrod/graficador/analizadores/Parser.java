@@ -18,6 +18,7 @@ import com.jbrod.graficador.reportes.ReporteColores;
 import com.jbrod.graficador.reportes.ReporteObjetos;
 import com.jbrod.graficador.reportes.ReporteAnimaciones;
 import com.jbrod.graficador.reportes.ReporteErrores;
+import com.jbrod.graficador.reportes.ReporteOperadores;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -74,14 +75,14 @@ public class Parser extends java_cup.runtime.lr_parser {
     "\032\010\030\013\040\001\002\000\006\004\023\011\025" +
     "\001\002\000\014\005\027\006\033\007\032\010\030\012" +
     "\031\001\002\000\006\004\023\011\025\001\002\000\006" +
-    "\004\023\011\025\001\002\000\016\005\ufff9\006\ufff9\007" +
-    "\ufff9\010\ufff9\012\ufff9\013\ufff9\001\002\000\006\004\023" +
+    "\004\023\011\025\001\002\000\016\005\ufff7\006\ufff7\007" +
+    "\ufff7\010\ufff7\012\ufff7\013\ufff7\001\002\000\006\004\023" +
     "\011\025\001\002\000\006\004\023\011\025\001\002\000" +
-    "\016\005\ufffa\006\ufffa\007\ufffa\010\ufffa\012\ufffa\013\ufffa" +
-    "\001\002\000\016\005\027\006\033\007\ufff8\010\ufff8\012" +
-    "\ufff8\013\ufff8\001\002\000\016\005\027\006\033\007\ufff7" +
-    "\010\ufff7\012\ufff7\013\ufff7\001\002\000\016\005\ufffb\006" +
-    "\ufffb\007\ufffb\010\ufffb\012\ufffb\013\ufffb\001\002\000\006" +
+    "\016\005\ufff8\006\ufff8\007\ufff8\010\ufff8\012\ufff8\013\ufff8" +
+    "\001\002\000\016\005\027\006\033\007\ufffb\010\ufffb\012" +
+    "\ufffb\013\ufffb\001\002\000\016\005\027\006\033\007\ufffa" +
+    "\010\ufffa\012\ufffa\013\ufffa\001\002\000\016\005\ufff9\006" +
+    "\ufff9\007\ufff9\010\ufff9\012\ufff9\013\ufff9\001\002\000\006" +
     "\004\023\011\025\001\002\000\014\005\027\006\033\007" +
     "\032\010\030\013\042\001\002\000\006\004\023\011\025" +
     "\001\002\000\014\005\027\006\033\007\032\010\030\012" +
@@ -240,6 +241,7 @@ public class Parser extends java_cup.runtime.lr_parser {
     private ReporteObjetos reporteObjetos;
     private ReporteAnimaciones reporteAnimaciones; 
     private ReporteErrores reporteErrores; 
+    private ReporteOperadores reporteOperadores; 
 
 
     public Parser(Lexer lex, VistaDeTrabajo vistaTrab){
@@ -251,6 +253,7 @@ public class Parser extends java_cup.runtime.lr_parser {
         reporteObjetos = new ReporteObjetos();
         reporteAnimaciones = new ReporteAnimaciones();
         reporteErrores = new ReporteErrores(); 
+        reporteOperadores = new ReporteOperadores();
     }
     public void setVista(VistaDeTrabajo vistaTrab){
         this.vista = vistaTrab;
@@ -294,6 +297,12 @@ public class Parser extends java_cup.runtime.lr_parser {
                 return Color.BLACK; // Retorna negro si no hay coincidencia
         }
     }
+
+    public String doubleString(double num){
+        String s = "";
+        s += num; 
+        return s; 
+    }
     /*public void unrecovered_syntax_error(Symbol cur_token) {
         System.out.println("Error irrecuperable sobrecargado");
     }*/
@@ -309,6 +318,9 @@ public class Parser extends java_cup.runtime.lr_parser {
     }
     public ReporteErrores obtenerReporteErrores(){
         return reporteErrores;
+    }
+    public ReporteOperadores obtenerReporteOperadores(){
+        return reporteOperadores;
     }
 
 
@@ -400,49 +412,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // num ::= num MULTIPLICACION num 
-            {
-              Object RESULT =null;
-		int n1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
-		int n1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		Object n1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		int n2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
-		int n2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
-		Object n2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = (double)n1 * (double)n2; 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("num",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
-            }
-          return CUP$Parser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // num ::= num DIVISION num 
-            {
-              Object RESULT =null;
-		int n1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
-		int n1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		Object n1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
-		int n2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
-		int n2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
-		Object n2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = (double)n1 / (double)n2; 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("num",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
-            }
-          return CUP$Parser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // num ::= PARA num PARC 
-            {
-              Object RESULT =null;
-		int numberleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
-		int numberright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
-		Object number = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = (double)number; 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("num",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
-            }
-          return CUP$Parser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // num ::= num SUMA num 
+          case 6: // num ::= num SUMA num 
             {
               Object RESULT =null;
 		int n1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
@@ -452,12 +422,13 @@ class CUP$Parser$actions {
 		int n2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object n2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		 RESULT = (double)n1 + (double)n2; 
+                               reporteOperadores.agregarOcurrencia("SUMA", cur_token.left, cur_token.right, doubleString((double)n1) + " + " + doubleString((double)n2)); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("num",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // num ::= num RESTA num 
+          case 7: // num ::= num RESTA num 
             {
               Object RESULT =null;
 		int n1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
@@ -467,6 +438,52 @@ class CUP$Parser$actions {
 		int n2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Object n2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		 RESULT = (double)n1 - (double)n2; 
+                               reporteOperadores.agregarOcurrencia("RESTA", cur_token.left, cur_token.right, doubleString((double)n1) + " - " + doubleString((double)n2));
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("num",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 8: // num ::= num MULTIPLICACION num 
+            {
+              Object RESULT =null;
+		int n1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int n1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object n1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int n2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int n2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object n2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = (double)n1 * (double)n2; 
+                                        reporteOperadores.agregarOcurrencia("MULTIPLICACION", cur_token.left, cur_token.right, doubleString((double)n1) + " * " + doubleString((double)n2));
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("num",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 9: // num ::= num DIVISION num 
+            {
+              Object RESULT =null;
+		int n1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int n1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Object n1 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int n2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int n2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Object n2 = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = (double)n1 / (double)n2; 
+                                        reporteOperadores.agregarOcurrencia("DIVISION", cur_token.left, cur_token.right, doubleString((double)n1) + " / " + doubleString((double)n2));
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("num",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 10: // num ::= PARA num PARC 
+            {
+              Object RESULT =null;
+		int numberleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int numberright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		Object number = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		 RESULT = (double)number; 
+                                        reporteOperadores.agregarOcurrencia("PARENTESIS", cur_token.left, cur_token.right, "(" + doubleString((double)number) + " ) " );
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("num",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

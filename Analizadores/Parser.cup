@@ -15,6 +15,7 @@ import com.jbrod.graficador.reportes.ReporteColores;
 import com.jbrod.graficador.reportes.ReporteObjetos;
 import com.jbrod.graficador.reportes.ReporteAnimaciones;
 import com.jbrod.graficador.reportes.ReporteErrores;
+import com.jbrod.graficador.reportes.ReporteOperadores;
 
 
 parser code{:
@@ -26,6 +27,7 @@ parser code{:
     private ReporteObjetos reporteObjetos;
     private ReporteAnimaciones reporteAnimaciones; 
     private ReporteErrores reporteErrores; 
+    private ReporteOperadores reporteOperadores; 
 
 
     public Parser(Lexer lex, VistaDeTrabajo vistaTrab){
@@ -37,6 +39,7 @@ parser code{:
         reporteObjetos = new ReporteObjetos();
         reporteAnimaciones = new ReporteAnimaciones();
         reporteErrores = new ReporteErrores(); 
+        reporteOperadores = new ReporteOperadores();
     }
     public void setVista(VistaDeTrabajo vistaTrab){
         this.vista = vistaTrab;
@@ -80,6 +83,12 @@ parser code{:
                 return Color.BLACK; // Retorna negro si no hay coincidencia
         }
     }
+
+    public String doubleString(double num){
+        String s = "";
+        s += num; 
+        return s; 
+    }
     /*public void unrecovered_syntax_error(Symbol cur_token) {
         System.out.println("Error irrecuperable sobrecargado");
     }*/
@@ -95,6 +104,9 @@ parser code{:
     }
     public ReporteErrores obtenerReporteErrores(){
         return reporteErrores;
+    }
+    public ReporteOperadores obtenerReporteOperadores(){
+        return reporteOperadores;
     }
 
 :}
@@ -145,15 +157,20 @@ inicio ::= graficar inicio;
 
 
 // Numeros
-num ::= NUMERO:number {: RESULT = (double)number; :};
+num ::= NUMERO:number {: RESULT = (double)number; :};   
 
-num ::= num:n1 MULTIPLICACION num:n2 {: RESULT = (double)n1 * (double)n2; :};
-num ::= num:n1 DIVISION       num:n2 {: RESULT = (double)n1 / (double)n2; :}; 
+num ::= num:n1 SUMA  num:n2 {: RESULT = (double)n1 + (double)n2; 
+                               reporteOperadores.agregarOcurrencia("SUMA", cur_token.left, cur_token.right, doubleString((double)n1) + " + " + doubleString((double)n2)); :}; 
+num ::= num:n1 RESTA num:n2 {: RESULT = (double)n1 - (double)n2; 
+                               reporteOperadores.agregarOcurrencia("RESTA", cur_token.left, cur_token.right, doubleString((double)n1) + " - " + doubleString((double)n2));:};
 
-num ::= PARA num:number PARC {: RESULT = (double)number; :};
+num ::= num:n1 MULTIPLICACION num:n2 {: RESULT = (double)n1 * (double)n2; 
+                                        reporteOperadores.agregarOcurrencia("MULTIPLICACION", cur_token.left, cur_token.right, doubleString((double)n1) + " * " + doubleString((double)n2));:};
+num ::= num:n1 DIVISION       num:n2 {: RESULT = (double)n1 / (double)n2; 
+                                        reporteOperadores.agregarOcurrencia("DIVISION", cur_token.left, cur_token.right, doubleString((double)n1) + " / " + doubleString((double)n2));:}; 
 
-num ::= num:n1 SUMA  num:n2 {: RESULT = (double)n1 + (double)n2; :}; 
-num ::= num:n1 RESTA num:n2 {: RESULT = (double)n1 - (double)n2; :};
+num ::= PARA num:number PARC {: RESULT = (double)number; 
+                                        reporteOperadores.agregarOcurrencia("PARENTESIS", cur_token.left, cur_token.right, "(" + doubleString((double)number) + " ) " );:};
 
 // Colores
 //MODIFICAR: Retornar el color como se usa en la libreria, en exadecimal o etc

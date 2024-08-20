@@ -5,6 +5,7 @@ import com.jbrod.graficador.reportes.ReporteAnimaciones;
 import com.jbrod.graficador.reportes.ReporteColores;
 import com.jbrod.graficador.reportes.ReporteErrores;
 import com.jbrod.graficador.reportes.ReporteObjetos;
+import com.jbrod.graficador.reportes.ReporteOperadores;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 
@@ -14,9 +15,14 @@ import javax.swing.JTable;
  */
 public class Reportes extends javax.swing.JFrame {
 
-    public Reportes(ReporteColores colores, ReporteObjetos objetos, ReporteAnimaciones animaciones, ReporteErrores lexicos, ReporteErrores sintacticos) {
+    public Reportes(ReporteOperadores operadores, ReporteColores colores, ReporteObjetos objetos, ReporteAnimaciones animaciones, ReporteErrores lexicos, ReporteErrores sintacticos) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        
+        //Reporte de operadores
+        JTable rOperadores = new JTable(operadores.obtenerOperadores());
+        pnl.add(new JLabel("Ocurrencias de operadores matematicos"));
+        pnl.add(rOperadores);
         
         // Reporte de colores
         JTable rColores = new JTable(colores.obtenerReporteColores());
