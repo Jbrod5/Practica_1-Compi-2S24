@@ -17,6 +17,7 @@ import java.awt.Color;
 import com.jbrod.graficador.reportes.ReporteColores;
 import com.jbrod.graficador.reportes.ReporteObjetos;
 import com.jbrod.graficador.reportes.ReporteAnimaciones;
+import com.jbrod.graficador.reportes.ReporteErrores;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -238,7 +239,7 @@ public class Parser extends java_cup.runtime.lr_parser {
     private ReporteColores reporteColores;
     private ReporteObjetos reporteObjetos;
     private ReporteAnimaciones reporteAnimaciones; 
-
+    private ReporteErrores reporteErrores; 
 
 
     public Parser(Lexer lex, VistaDeTrabajo vistaTrab){
@@ -248,7 +249,8 @@ public class Parser extends java_cup.runtime.lr_parser {
 
         reporteColores = new ReporteColores();
         reporteObjetos = new ReporteObjetos();
-        reporteAnimaciones = new ReporteAnimaciones(); 
+        reporteAnimaciones = new ReporteAnimaciones();
+        reporteErrores = new ReporteErrores(); 
     }
     public void setVista(VistaDeTrabajo vistaTrab){
         this.vista = vistaTrab;
@@ -261,6 +263,9 @@ public class Parser extends java_cup.runtime.lr_parser {
         System.out.println("Columna " + cur_token.right);
         if (expected_token_ids().isEmpty()) {
             System.out.println("Ya no se esperaba ningun simbolo");
+            reporteErrores.agregarError(symbl_name_from_id(cur_token.sym),cur_token.left,cur_token.right, "Sintactico", "Ya no se esperaba ningun simbolo." );
+        }else{
+            reporteErrores.agregarError(symbl_name_from_id(cur_token.sym),cur_token.left,cur_token.right, "Sintactico", "Se esperaba otro simbolo." );
         }
 
     }
@@ -301,6 +306,9 @@ public class Parser extends java_cup.runtime.lr_parser {
     }
     public ReporteAnimaciones obtenerReporteAnimaciones(){
         return reporteAnimaciones;
+    }
+    public ReporteErrores obtenerReporteErrores(){
+        return reporteErrores;
     }
 
 

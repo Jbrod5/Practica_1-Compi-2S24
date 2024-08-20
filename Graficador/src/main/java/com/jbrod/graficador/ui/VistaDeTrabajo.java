@@ -35,6 +35,7 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
     
     
     private Parser parser; 
+    private Lexer lexer; 
     
     public VistaDeTrabajo(VentanaPrincipal principal) {
         initComponents();
@@ -92,7 +93,7 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
     
     public void instanciarGraficos(){
         StringReader reader = new StringReader(txpnCodigo.getText());
-        Lexer lexer = new Lexer(reader);
+        lexer = new Lexer(reader);
         parser = new Parser(lexer, this);
         parser.setVista(this);
         
@@ -338,7 +339,9 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
         if(parser != null){
             Reportes r = new Reportes(parser.obtenerReporteColores(),
                                       parser.obtenerReporteObjetos(),
-                                      parser.obtenerReporteAnimaciones());
+                                      parser.obtenerReporteAnimaciones(), 
+                                      lexer.obtenerReporteErrores(), 
+                                      parser.obtenerReporteErrores());
             r.setVisible(true);
         }
         

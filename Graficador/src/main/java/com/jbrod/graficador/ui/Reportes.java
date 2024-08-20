@@ -3,6 +3,7 @@ package com.jbrod.graficador.ui;
 
 import com.jbrod.graficador.reportes.ReporteAnimaciones;
 import com.jbrod.graficador.reportes.ReporteColores;
+import com.jbrod.graficador.reportes.ReporteErrores;
 import com.jbrod.graficador.reportes.ReporteObjetos;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -13,7 +14,7 @@ import javax.swing.JTable;
  */
 public class Reportes extends javax.swing.JFrame {
 
-    public Reportes(ReporteColores colores, ReporteObjetos objetos, ReporteAnimaciones animaciones) {
+    public Reportes(ReporteColores colores, ReporteObjetos objetos, ReporteAnimaciones animaciones, ReporteErrores lexicos, ReporteErrores sintacticos) {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         
@@ -32,6 +33,13 @@ public class Reportes extends javax.swing.JFrame {
         pnl.add(new JLabel("Conteo de animaciones"));
         pnl.add(rAnimaciones);
         
+        //Reportes de errores
+        pnl.add(new JLabel("Reporte de errores"));
+        JTable rErroresL = new JTable(lexicos.obtenerErrores());
+        pnl.add(rErroresL);
+        JTable rErroresS = new JTable(sintacticos.obtenerErrores());
+        pnl.add(rErroresS);
+                
 
     }
     
@@ -52,7 +60,7 @@ public class Reportes extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pnl.setLayout(new java.awt.GridLayout(10, 0));
+        pnl.setLayout(new java.awt.GridLayout(11, 0));
         jScrollPane1.setViewportView(pnl);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

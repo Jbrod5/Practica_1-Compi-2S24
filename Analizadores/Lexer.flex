@@ -2,6 +2,7 @@
 
 package com.jbrod.graficador.analizadores;
 import java_cup.runtime.*;
+import com.jbrod.graficador.reportes.ReporteErrores;
 
 %%
 
@@ -79,6 +80,12 @@ WhiteSpaceOp ={WhiteSpace}*
         System.out.println("Error en la linea: " + (yyline + 1) + " columna: " + (yycolumn + 1) + " : " + message);
     }
     
+    private ReporteErrores errores = new ReporteErrores();
+
+    public ReporteErrores obtenerReporteErrores (){
+        return errores; 
+    }
+    
 %}
 
 
@@ -129,5 +136,8 @@ WhiteSpaceOp ={WhiteSpace}*
 {identificador} {return symbol(sym.IDENTIFICADOR, yytext());}
 
 /* error fallback */
-[^]            { System.out.println("No se reconocio el lexema " + yytext() + " como un token valido y se ignoro.");}
+{WhiteSpace} { /* No hacer nada */ }
+
+[^]            { System.out.println("No se reconocio el lexema " + yytext() + " como un token valido y se ignoro.");
+                 errores.agregarError(yytext(), yyline +1, yycolumn + 1, "Lexico", "El simbolo no se encuentra definido en el alfabeto.");}
 <<EOF>>        { return symbol(sym.EOF); }
