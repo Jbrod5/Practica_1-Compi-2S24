@@ -238,6 +238,9 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
             contentStream.close();
             document.save(rutaArchivo);
             System.out.println("PDF creado exitosamente en: " + rutaArchivo);
+            //Eliminar png
+            File img = new File(rutaimg);
+            img.delete();
         } catch (IOException e) {
             e.printStackTrace();
         }
