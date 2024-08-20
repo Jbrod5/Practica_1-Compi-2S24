@@ -4,6 +4,7 @@ package com.jbrod.graficador.graficos;
 import com.jbrod.graficador.ui.VistaDeTrabajo;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  *
@@ -33,6 +34,13 @@ public class Rectangulo extends Grafico{
         //Dibujar el rectangulo
         g.setColor(color);
         g.fillRect(posx, posx, ancho, alto);
+    }
+
+    @Override
+    public void establecerGrafico(Graphics2D g2d) {
+        //Dibujar el rectangulo
+        g2d.setColor(color);
+        g2d.fillRect(posx, posx, ancho, alto);
     }
     
     

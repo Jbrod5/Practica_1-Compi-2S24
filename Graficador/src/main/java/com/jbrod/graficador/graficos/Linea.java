@@ -4,6 +4,7 @@ package com.jbrod.graficador.graficos;
 import com.jbrod.graficador.ui.VistaDeTrabajo;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  *
@@ -31,6 +32,12 @@ public class Linea extends Grafico{
         Graphics g = vista.obtenerGrafico();
         g.setColor(color);
         g.drawLine(posx, posy, posx2, posy2);
+    }
+
+    @Override
+    public void establecerGrafico(Graphics2D g2d) {
+        g2d.setColor(color);
+        g2d.drawLine(posx, posy, posx2, posy2);
     }
     
 }

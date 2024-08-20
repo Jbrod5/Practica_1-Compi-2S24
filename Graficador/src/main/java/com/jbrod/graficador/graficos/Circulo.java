@@ -4,6 +4,7 @@ package com.jbrod.graficador.graficos;
 import com.jbrod.graficador.ui.VistaDeTrabajo;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  *
@@ -29,6 +30,14 @@ public class Circulo extends Grafico{
         g.setColor(color);
         //El ancho y el alto es el doble del radio
         g.fillOval(posx, posy, 2*radio, 2*radio);
+    }
+
+    @Override
+    public void establecerGrafico(Graphics2D g2d) {
+        //Dibujar el circulo
+        g2d.setColor(color);
+        //El ancho y el alto es el doble del radio
+        g2d.fillOval(posx, posy, 2*radio, 2*radio);
     }
     
 }

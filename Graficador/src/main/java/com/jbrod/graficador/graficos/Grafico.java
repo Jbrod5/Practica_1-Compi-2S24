@@ -3,6 +3,7 @@ package com.jbrod.graficador.graficos;
 
 import com.jbrod.graficador.ui.VistaDeTrabajo;
 import java.awt.Color;
+import java.awt.Graphics2D;
 
 /**
  *
@@ -24,6 +25,7 @@ public abstract class Grafico {
     protected int posx, posy; 
     
     public abstract void establecerGrafico(VistaDeTrabajo vista);
+    public abstract void establecerGrafico(Graphics2D g2d);
     
     
     public void ejecutarAnimacion(){

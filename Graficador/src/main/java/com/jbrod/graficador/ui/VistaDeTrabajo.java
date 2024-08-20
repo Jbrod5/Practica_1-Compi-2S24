@@ -34,6 +34,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 import java.util.Comparator;
+import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 
 /**
  *
@@ -199,11 +200,17 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
         rutaArchivo +="/" + nombreArchivo + ".png";
         BufferedImage imagen = new BufferedImage(pnlGraficos.getWidth(), pnlGraficos.getHeight(), BufferedImage.TYPE_INT_ARGB);
         
+        Graphics2D g2d = imagen.createGraphics();
+        //Dibujar en g2d
+        for (Grafico grafico : graficos) {
+            grafico.establecerGrafico(g2d);
+        }
+        
         // Dibujar el JPanel en el BufferedImage
-        Graphics g = imagen.getGraphics();
+        /*Graphics g = imagen.getGraphics();
         pnlGraficos.paint(g);
         dibujarGraficos();
-        g.dispose();
+        g.dispose();*/
         
         // Guardar la imagen como archivo PNG
         try {

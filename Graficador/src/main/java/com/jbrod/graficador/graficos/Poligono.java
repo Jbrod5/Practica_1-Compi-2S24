@@ -4,6 +4,7 @@ package com.jbrod.graficador.graficos;
 import com.jbrod.graficador.ui.VistaDeTrabajo;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  *
@@ -50,6 +51,13 @@ public class Poligono extends Grafico{
         calcularPol();
         g.setColor(color);
         g.fillPolygon(cooX, cooY, nLados);
+    }
+
+    @Override
+    public void establecerGrafico(Graphics2D g2d) {
+       calcularPol();
+        g2d.setColor(color);
+        g2d.fillPolygon(cooX, cooY, nLados);
     }
     
 }
