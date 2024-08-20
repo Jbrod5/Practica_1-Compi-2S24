@@ -13,12 +13,24 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.StringReader;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.text.StyledEditorKit;
+
+
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JPanel;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 /**
  *
@@ -159,8 +171,47 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
 
     
     
-    
-    
+    public void exportarPanelAPNG(String rutaArchivo) {
+        // Crear un BufferedImage
+        rutaArchivo +="/" + nombreArchivo + ".png";
+        BufferedImage imagen = new BufferedImage(pnlGraficos.getWidth(), pnlGraficos.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        
+        // Dibujar el JPanel en el BufferedImage
+        Graphics g = imagen.getGraphics();
+        pnlGraficos.paint(g);
+        dibujarGraficos();
+        g.dispose();
+        
+        // Guardar la imagen como archivo PNG
+        try {
+            ImageIO.write(imagen, "png", new File(rutaArchivo));
+            System.out.println("El panel se ha exportado a " + rutaArchivo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+     public void exportarAPDF(String rutaArchivo) {
+        // Renderizar el JPanel a una imagen
+         exportarPanelAPNG(rutaArchivo);
+         String rutaimg =  rutaArchivo +"/" + nombreArchivo + ".png";
+         rutaArchivo +="/" + nombreArchivo + ".pdf";
+         
+         
+        // Crear un PDF usando Apache PDFBox
+        try (PDDocument document = new PDDocument()) {
+            PDPage page = new PDPage();
+            document.addPage(page);
+            PDImageXObject pdImage = PDImageXObject.createFromFile(rutaimg, document);
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            contentStream.drawImage(pdImage, 20, 20);
+            contentStream.close();
+            document.save(rutaArchivo);
+            System.out.println("PDF creado exitosamente en: " + rutaArchivo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     
     
     
@@ -186,6 +237,8 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
         pnlGraficos = new javax.swing.JPanel();
         btnAnimar = new javax.swing.JButton();
         btnReportes = new javax.swing.JButton();
+        btnExportar = new javax.swing.JButton();
+        chbsPDF = new javax.swing.JCheckBox();
 
         btnCompilar.setText("Compilar");
         btnCompilar.addActionListener(new java.awt.event.ActionListener() {
@@ -244,6 +297,15 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
             }
         });
 
+        btnExportar.setText("Exportar");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
+
+        chbsPDF.setText("PDF");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -256,6 +318,10 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnReportes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(chbsPDF)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnExportar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGuardar)
                 .addGap(3, 3, 3)
                 .addComponent(btnCerrar)
@@ -272,7 +338,9 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
                     .addComponent(btnGuardar)
                     .addComponent(btnCerrar)
                     .addComponent(btnAnimar)
-                    .addComponent(btnReportes))
+                    .addComponent(btnReportes)
+                    .addComponent(btnExportar)
+                    .addComponent(chbsPDF))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -348,6 +416,32 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnReportesActionPerformed
 
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        
+        // 1. OBTENER LA RUTA DE LA CARPETA ------------------------------------------------------------------------------------------------
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Seleccionar Carpeta");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); // Solo permite seleccionar carpetas
+        String carpeta = "";
+        // Mostrar el cuadro de diálogo
+        int resultado = chooser.showOpenDialog(null);
+        if (resultado == JFileChooser.APPROVE_OPTION) {
+            File carpetaSeleccionada = chooser.getSelectedFile(); // Obtener la carpeta seleccionada
+            carpeta =  carpetaSeleccionada.getAbsolutePath();
+            System.out.println("Ruta de la carpeta seleccionada: " + carpetaSeleccionada.getAbsolutePath());
+        } else {
+            System.out.println("No se seleccionó ninguna carpeta.");
+        }
+        
+        // 2. SI ES PNG: 
+        if(!chbsPDF.isSelected()){
+            exportarPanelAPNG(carpeta);
+        }else{
+        //3 Si es PDF
+            exportarAPDF(carpeta);
+        }
+    }//GEN-LAST:event_btnExportarActionPerformed
+
     private void guardarContenido(){
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaArchivo))) {
@@ -369,8 +463,10 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
     private javax.swing.JButton btnAnimar;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnCompilar;
+    private javax.swing.JButton btnExportar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnReportes;
+    private javax.swing.JCheckBox chbsPDF;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
