@@ -40,15 +40,48 @@ public abstract class Grafico {
             int newXR = (int)Math.round(newX);
             int newYR = (int)Math.round(newY);
             
+            
             for (int i = 0; i < posxAnimacion.length; i++) {
                 //Coordenadas en base a lineal o curva
                 if(lineal){
                     //Transformar x, y en una linea
-                    posxAnimacion[i] = posx+newXR;
-                    posyAnimacion[i] = posy+newYR;
+                    
+                    if(i > 0){
+                        posxAnimacion[i] = posxAnimacion[i-1] + newXR;
+                        posyAnimacion[i] = posyAnimacion[i-1] + newYR;
+                    }else{
+                        posxAnimacion[i] = posx+newXR;
+                        posyAnimacion[i] = posy+newYR;
+                    }
                 }else{
-                    posxAnimacion[i] = (int) (posx + newXR * Math.cos(2 * Math.PI * i / newXR ));
-                    posyAnimacion[i] = (int) (posy + newXR * Math.cos(2 * Math.PI * i / newYR ));
+                    
+                    if(i > 0){
+                        int x2, y2; 
+                        if(i%2 == 0){
+                            x2 = newYR*3;
+                            y2 = newXR*3; 
+                        }else{
+                            x2 = -1 *newYR*3;
+                            y2 = -1*newXR*3; 
+                        }
+                        
+                        posxAnimacion[i] = posxAnimacion[i-1] + (int) (posx + newXR * Math.cos(2 * Math.PI * i / newXR )) + x2;
+                        posyAnimacion[i] = posyAnimacion[i-1] + (int) (posy + newXR * Math.cos(2 * Math.PI * i / newYR ))+y2;
+                    }else{      
+                        if(i > 0){
+                        int x2, y2; 
+                        if(i%2 == 0){
+                            x2 = newYR*3;
+                            y2 = newXR*3; 
+                        }else{
+                            x2 = -1 *newYR*3;
+                            y2 = -1*newXR*3; 
+                        }
+                        posxAnimacion[i] = (int) (posx + newXR * Math.cos(2 * Math.PI * i / newXR )) + x2;
+                        posyAnimacion[i] = (int) (posy + newXR * Math.cos(2 * Math.PI * i / newYR )) + y2;
+                        
+                        }
+                    }
                 }
             }
         }
@@ -62,6 +95,8 @@ public abstract class Grafico {
           }
           posx = posxAnimacion[contadorFrames];
           posy = posyAnimacion[contadorFrames];
+            System.out.println("X: " + posx);
+            System.out.println("Y: " + posy);
           contadorFrames++;
 
         } else if(contadorFrames == 10){
