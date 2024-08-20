@@ -92,6 +92,7 @@ public abstract class Grafico {
     
     //Establecer las coordenadas x, y destino
     public void establecerDestino(int x, int y){
-        
+        posxDestino = x; 
+        posyDestino = y; 
     }
 }
