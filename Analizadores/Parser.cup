@@ -107,10 +107,10 @@ precedence left MULTIPLICACION, DIVISION;
 
 // Inicio
 start with inicio; 
-inicio ::= graficar inicio; 
-inicio ::= animar inicio;
 inicio ::= graficar;
 inicio ::= animar; 
+inicio ::= animar inicio;
+inicio ::= graficar inicio; 
 
 
 // Numeros
@@ -164,9 +164,12 @@ figura ::= CIRCULO      PARA IDENTIFICADOR:nombre COMA num:posx COMA num:posy CO
             {: System.out.printf ("Graficare un CIRCULO llamado: + %s | posx: %.2f posy: %.2f  | radio: %.2f color: %s %n %n", nombre, posx, posy, radio, color );
             vista.agregarFigura(new Circulo((String)nombre, (int)Math.round((double)posx), (int)Math.round((double)posy), (int)Math.round((double)radio), obtenerColor((String)color))); :};
 
+
+
 // Animaciones: tipo, destinox, destinoy, orden 
 animar ::= ANIMAR OBJETO ANTERIOR PARA tipo_animacion:tipo COMA num:destinox COMA num:destinoy COMA num:orden PARC
-            {: System.out.printf ("Animare el objeto anterior de forma: %s| hacia x: %.2f   y: %.2f | orden: %.2f", tipo, destinox, destinoy, orden); :};
+            {: System.out.printf ("Animare el objeto anterior de forma: | hacia x: %.2f   y: %.2f | orden: %.2f", destinox, destinoy, orden); 
+                vista.agregarAnimacionUltimaFigura((boolean)tipo, (int)Math.round((double)destinox), (int)Math.round((double)destinoy), (int)Math.round((double)orden)); :};
 
-tipo_animacion ::= LINEA{: RESULT = "Linea"; :};
-tipo_animacion ::= CURVA{: RESULT = "Curva"; :};
+tipo_animacion ::= LINEA{: RESULT = true; :};
+tipo_animacion ::= CURVA{: RESULT = false; :};
