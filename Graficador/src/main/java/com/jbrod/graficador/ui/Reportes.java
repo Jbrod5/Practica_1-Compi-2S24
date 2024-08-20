@@ -19,33 +19,38 @@ public class Reportes extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         
-        //Reporte de operadores
-        JTable rOperadores = new JTable(operadores.obtenerOperadores());
-        pnl.add(new JLabel("Ocurrencias de operadores matematicos"));
-        pnl.add(rOperadores);
-        
-        // Reporte de colores
-        JTable rColores = new JTable(colores.obtenerReporteColores());
-        pnl.add(new JLabel("Conteo de colores"));
-        pnl.add(rColores);
-        
-        // Reporte de objetos
-        JTable rObjetos = new JTable(objetos.obtenerReporteObjetos());
-        pnl.add(new JLabel("Conteo de objetos"));
-        pnl.add(rObjetos);
-        
-        // Reporte de animaciones
-        JTable rAnimaciones = new JTable(animaciones.obtenerReporteAnimaciones());
-        pnl.add(new JLabel("Conteo de animaciones"));
-        pnl.add(rAnimaciones);
-        
-        //Reportes de errores
-        pnl.add(new JLabel("Reporte de errores"));
-        JTable rErroresL = new JTable(lexicos.obtenerErrores());
-        pnl.add(rErroresL);
-        JTable rErroresS = new JTable(sintacticos.obtenerErrores());
-        pnl.add(rErroresS);
-                
+        //Si hay errores, solo mostrar los errores
+        if(lexicos.estaVacio() && sintacticos.estaVacio()){
+            //Reporte de operadores
+            JTable rOperadores = new JTable(operadores.obtenerOperadores());
+            pnl.add(new JLabel("Ocurrencias de operadores matematicos"));
+            pnl.add(rOperadores);
+            
+            // Reporte de colores
+            JTable rColores = new JTable(colores.obtenerReporteColores());
+            pnl.add(new JLabel("Conteo de colores"));
+            pnl.add(rColores);
+            
+            // Reporte de objetos
+            JTable rObjetos = new JTable(objetos.obtenerReporteObjetos());
+            pnl.add(new JLabel("Conteo de objetos"));
+            pnl.add(rObjetos);
+            
+            // Reporte de animaciones
+            JTable rAnimaciones = new JTable(animaciones.obtenerReporteAnimaciones());
+            pnl.add(new JLabel("Conteo de animaciones"));
+            pnl.add(rAnimaciones);
+
+        }else{
+            //Reportes de errores
+            pnl.add(new JLabel("Reporte de errores"));
+            JTable rErroresL = new JTable(lexicos.obtenerErrores());
+            pnl.add(rErroresL);
+            JTable rErroresS = new JTable(sintacticos.obtenerErrores());
+            pnl.add(rErroresS);
+            
+        }
+           
 
     }
     
