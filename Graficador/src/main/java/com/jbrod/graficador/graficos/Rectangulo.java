@@ -12,8 +12,6 @@ import java.awt.Graphics;
 public class Rectangulo extends Grafico{
 
     private String nombre; 
-    private int posx; 
-    private int posy; 
     private int ancho; 
     private int alto; 
 

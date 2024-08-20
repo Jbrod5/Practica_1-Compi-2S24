@@ -12,8 +12,6 @@ import java.awt.Graphics;
 public class Circulo extends Grafico{
 
     private String nombre; 
-    private int posx;
-    private int posy; 
     private int radio; 
     
     public Circulo(String nombre, int posx, int posy, int radio, Color color){

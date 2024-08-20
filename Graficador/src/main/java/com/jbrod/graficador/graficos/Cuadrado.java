@@ -12,8 +12,6 @@ import java.awt.Graphics;
 public class Cuadrado extends Grafico{
     
     private String nombre; 
-    private int posx;
-    private int posy; 
     private int tam_lado; 
     
     public Cuadrado(String nombre, int posx, int posy, int tam_lado, Color color){

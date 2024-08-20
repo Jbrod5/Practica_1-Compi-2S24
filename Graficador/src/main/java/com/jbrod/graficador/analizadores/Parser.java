@@ -39,8 +39,8 @@ public class Parser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\035\000\002\002\004\000\002\002\004\000\002\002" +
-    "\004\000\002\002\003\000\002\002\003\000\002\003\003" +
+    "\000\035\000\002\002\004\000\002\002\003\000\002\002" +
+    "\003\000\002\002\004\000\002\002\004\000\002\003\003" +
     "\000\002\003\005\000\002\003\005\000\002\003\005\000" +
     "\002\003\005\000\002\003\005\000\002\004\003\000\002" +
     "\004\003\000\002\004\003\000\002\004\003\000\002\004" +
@@ -58,10 +58,10 @@ public class Parser extends java_cup.runtime.lr_parser {
     unpackFromStrings(new String[] {
     "\000\160\000\006\027\005\032\004\001\002\000\014\025" +
     "\051\033\050\034\052\035\045\036\047\001\002\000\004" +
-    "\030\014\001\002\000\010\002\ufffd\027\005\032\004\001" +
-    "\002\000\010\002\ufffe\027\005\032\004\001\002\000\004" +
+    "\030\014\001\002\000\010\002\uffff\027\005\032\004\001" +
+    "\002\000\010\002\000\027\005\032\004\001\002\000\004" +
     "\002\011\001\002\000\004\002\001\001\002\000\004\002" +
-    "\000\001\002\000\004\002\uffff\001\002\000\004\031\015" +
+    "\ufffd\001\002\000\004\002\ufffe\001\002\000\004\031\015" +
     "\001\002\000\004\011\016\001\002\000\006\025\021\026" +
     "\017\001\002\000\004\013\uffe5\001\002\000\004\013\022" +
     "\001\002\000\004\013\uffe6\001\002\000\006\004\023\011" +
@@ -321,25 +321,7 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 1: // inicio ::= graficar inicio 
-            {
-              Object RESULT =null;
-
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
-            }
-          return CUP$Parser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 2: // inicio ::= animar inicio 
-            {
-              Object RESULT =null;
-
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
-            }
-          return CUP$Parser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // inicio ::= graficar 
+          case 1: // inicio ::= graficar 
             {
               Object RESULT =null;
 
@@ -348,11 +330,29 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // inicio ::= animar 
+          case 2: // inicio ::= animar 
             {
               Object RESULT =null;
 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 3: // inicio ::= animar inicio 
+            {
+              Object RESULT =null;
+
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 4: // inicio ::= graficar inicio 
+            {
+              Object RESULT =null;
+
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 
@@ -710,7 +710,8 @@ class CUP$Parser$actions {
 		int ordenleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int ordenright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		Object orden = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 System.out.printf ("Animare el objeto anterior de forma: %s| hacia x: %.2f   y: %.2f | orden: %.2f", tipo, destinox, destinoy, orden); 
+		 System.out.printf ("Animare el objeto anterior de forma: | hacia x: %.2f   y: %.2f | orden: %.2f", destinox, destinoy, orden); 
+                vista.agregarAnimacionUltimaFigura((boolean)tipo, (int)Math.round((double)destinox), (int)Math.round((double)destinoy), (int)Math.round((double)orden)); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("animar",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-11)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -719,7 +720,7 @@ class CUP$Parser$actions {
           case 27: // tipo_animacion ::= LINEA 
             {
               Object RESULT =null;
-		 RESULT = "Linea"; 
+		 RESULT = true; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("tipo_animacion",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -728,7 +729,7 @@ class CUP$Parser$actions {
           case 28: // tipo_animacion ::= CURVA 
             {
               Object RESULT =null;
-		 RESULT = "Curva"; 
+		 RESULT = false; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("tipo_animacion",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

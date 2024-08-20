@@ -12,8 +12,6 @@ import java.awt.Graphics;
 public class Poligono extends Grafico{
 
     private String nombre;
-    private int posx; 
-    private int posy; 
     private int cooX[];
     private int cooY[];
     private int nLados;
@@ -32,7 +30,11 @@ public class Poligono extends Grafico{
         
         cooX = new int[nLados];
         cooY = new int [nLados];
+        calcularPol();
         
+    }
+    
+    public void calcularPol(){
         for (int i = 0; i < nLados; i++) {
             cooX[i] = (int) (posx + ancho * Math.cos(2 * Math.PI * i / nLados)); // Coordenada x
             cooY[i] = (int) (posy + alto  * Math.sin(2 * Math.PI * i / nLados)); // Coordenada y
@@ -45,6 +47,7 @@ public class Poligono extends Grafico{
     @Override
     public void establecerGrafico(VistaDeTrabajo vista) {
         Graphics g = vista.obtenerGrafico();
+        calcularPol();
         g.setColor(color);
         g.fillPolygon(cooX, cooY, nLados);
     }

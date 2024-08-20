@@ -18,6 +18,7 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.text.StyledEditorKit;
 
 /**
  *
@@ -30,6 +31,7 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
     private String rutaArchivo; 
     private File archivo; 
     private LinkedList<Grafico> graficos;
+    private Grafico ultimo; // Ultimo grafico agregado
     
     public VistaDeTrabajo(VentanaPrincipal principal) {
         initComponents();
@@ -72,7 +74,17 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
     
     // Metodos para graficar figuras
     public void agregarFigura(Grafico grafico){
-        graficos.add(grafico);  
+        graficos.add(grafico);
+        ultimo = grafico; 
+    }
+    
+    public void agregarAnimacionUltimaFigura(boolean lineal, int x, int y, int orden){
+        if(ultimo != null){
+            ultimo.establecerDestino(x, y);
+            ultimo.setAnimado(true);
+            ultimo.setLineal(lineal);
+        }
+        
     }
     
     public void instanciarGraficos(){
@@ -105,6 +117,25 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
             //dibujarLinea(0, 0, 0, 0, Color.black);
         }
     }
+    
+    
+    
+    public void ejecutarAnimaciones(){
+        //pnlGraficos.paint(g);
+        for (Grafico grafico : graficos) {
+            while(grafico.isAnimado()){
+                grafico.ejecutarAnimacion();
+                dibujarGraficos();
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(VistaDeTrabajo.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+    
+    
     
     public void dibujarLinea(int x1, int y1, int x2, int y2, Color color){
         Graphics g = pnlGraficos.getGraphics();
@@ -149,6 +180,7 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
         txpnCodigo = new javax.swing.JTextPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         pnlGraficos = new javax.swing.JPanel();
+        btnAnimar = new javax.swing.JButton();
 
         btnCompilar.setText("Compilar");
         btnCompilar.addActionListener(new java.awt.event.ActionListener() {
@@ -193,6 +225,13 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
 
         jSplitPane1.setRightComponent(jScrollPane2);
 
+        btnAnimar.setText("Animar");
+        btnAnimar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnimarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -200,6 +239,8 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnCompilar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAnimar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnGuardar)
                 .addGap(3, 3, 3)
@@ -210,12 +251,13 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                .addComponent(jSplitPane1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCompilar)
                     .addComponent(btnGuardar)
-                    .addComponent(btnCerrar))
+                    .addComponent(btnCerrar)
+                    .addComponent(btnAnimar))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -272,6 +314,11 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
         dibujarGraficos();
     }//GEN-LAST:event_btnCompilarActionPerformed
 
+    private void btnAnimarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnimarActionPerformed
+        // TODO add your handling code here:
+        ejecutarAnimaciones();
+    }//GEN-LAST:event_btnAnimarActionPerformed
+
     private void guardarContenido(){
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(rutaArchivo))) {
@@ -290,6 +337,7 @@ public class VistaDeTrabajo extends javax.swing.JPanel {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnimar;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnCompilar;
     private javax.swing.JButton btnGuardar;
